@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/*
+  Sistem visual INORGA — diturunkan dari deck presentasi:
+  teal tua sebagai warna kelembagaan, cyan sebagai aksen, latar gading.
+*/
+@theme {
+  --color-teal-950: #062b2d;
+  --color-teal-900: #0b3b3d;
+  --color-teal-800: #0e4547;
+  --color-teal-700: #12595c;
+  --color-teal-600: #17706f;
+  --color-teal-500: #1d8a86;
+  --color-cyan-400: #22c3d6;
+  --color-cyan-300: #55d6e4;
+  --color-cyan-200: #9ce7ef;
+  --color-gading-50: #f6f5f1;
+  --color-gading-100: #f0efea;
+  --color-gading-200: #e4e2da;
+  --color-gading-300: #d1cfc4;
+  --color-emas: #b8860b;
+  --color-perak: #8a8d91;
+  --color-perunggu: #a9713f;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, monospace;
+}
+
+html {
+  background: var(--color-gading-100);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  color: var(--color-teal-950);
+  font-family: var(--font-sans);
+  overscroll-behavior-y: none;
+}
+
+/* Angka yang berbaris rapi di tabel dan antrian. */
+.tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes pulse-panggil {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 195, 214, 0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(34, 195, 214, 0); }
+}
+.animate-panggil {
+  animation: pulse-panggil 1.8s ease-in-out infinite;
+}
