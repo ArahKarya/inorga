@@ -55,7 +55,7 @@ export default function RootLayout({
       <body className="min-h-dvh bg-ink-800 antialiased">
         <SmoothScroll />
         <DemoBar />
-        <div className="pt-[56px]">{children}</div>
+        <div className="pt-[71px]">{children}</div>
       </body>
     </html>
   );

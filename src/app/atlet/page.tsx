@@ -96,7 +96,7 @@ export default function HalamanAtlet() {
                 value={`INORGA:${atlet.id}:${eventArena?.id ?? "—"}`}
                 size={172}
                 bgColor="#2a2a2a"
-                fgColor="#22c3d6"
+                fgColor="#e8481f"
                 level="M"
               />
               <p className="tnum font-mono text-[12px] tracking-[0.2em] text-aksen">

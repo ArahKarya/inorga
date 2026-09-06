@@ -36,7 +36,7 @@ export function JudulBagian({
     <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-3">
       <div className="flex flex-col gap-2">
         {eyebrow ? <span className="label">{eyebrow}</span> : null}
-        <h2 className="judul text-[22px] sm:text-[26px]">{judul}</h2>
+        <h2 className="judul text-[clamp(26px,3.2vw,44px)]">{judul}</h2>
       </div>
       {aksi}
     </div>
@@ -87,13 +87,9 @@ export function Statistik({
   ket?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
-      <span className="tnum font-display text-[clamp(34px,6vw,56px)] leading-[0.9] font-black text-aksen">
-        {angka}
-      </span>
-      <span className="font-mono text-[10px] tracking-[0.14em] text-paper uppercase">
-        {label}
-      </span>
+    <div className="flex flex-col">
+      <span className="stat-num tnum">{angka}</span>
+      <span className="stat-label">{label}</span>
       {ket ? <span className="text-[12px] text-muted">{ket}</span> : null}
     </div>
   );

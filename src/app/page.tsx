@@ -40,101 +40,134 @@ export default function Beranda() {
 
   return (
     <main>
-      <section className="mx-auto max-w-6xl px-5 pt-14 pb-16 sm:px-8 sm:pt-20">
-        <Reveal>
-          <span className="label">Prototipe Demo</span>
-        </Reveal>
-        <RevealBaris
-          sebagai="h1"
-          className="judul judul-berat mt-5 max-w-[16ch] text-[clamp(42px,9vw,104px)]"
-          baris={[
-            "Mendigitalkan",
-            "tradisi,",
-            <span className="text-aksen" key="a">
-              menemukan
-            </span>,
-            <span className="text-aksen" key="b">
-              juara
-            </span>,
-          ]}
-        />
-        <Reveal delay={260}>
-          <p className="mt-7 max-w-[56ch] text-[16px] leading-relaxed text-paper-dim">
-            Ekosistem pemanduan bakat pencak silat tradisi Kota Palembang. Satu
-            sistem, empat sudut pandang — dari atlet yang mendaftar sampai peta
-            sebaran bakat yang dibaca Pemkot.
-          </p>
-        </Reveal>
-      </section>
-
-      <section className="border-y border-white/10 bg-ink-700">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-5 py-10 sm:px-8 lg:grid-cols-4">
-          {[
-            { angka: totalAtlet.toLocaleString("id-ID"), label: "Atlet terdata" },
-            { angka: totalPerguruan, label: "Perguruan & padepokan" },
-            { angka: 18, label: "Kecamatan terpetakan" },
-            { angka: berlangsung, label: "Event berlangsung" },
-          ].map((s, i) => (
-            <Reveal key={s.label} delay={i * 80}>
-              <Statistik angka={s.angka} label={s.label} />
+      {/* Hero — susunan dua kolom Apex: judul besar di kiri, ringkasan di kanan bawah. */}
+      <section className="bagian-gelap flex min-h-[78vh] items-end pt-16 pb-14">
+        <div className="inner grid grid-cols-1 items-end gap-7 lg:grid-cols-[1.4fr_1fr]">
+          <div className="min-w-0">
+            <Reveal>
+              <span className="label">Prototipe Demo</span>
             </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
-        <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-3">
-          <div className="flex flex-col gap-2">
-            <span className="label">Pilih sudut pandang</span>
             <RevealBaris
-              className="judul text-[26px]"
-              baris={["Empat peran, satu data"]}
+              sebagai="h1"
+              className="judul hero-judul mt-5"
+              baris={[
+                "Mendigitalkan",
+                "tradisi,",
+                <span className="text-aksen" key="a">
+                  menemukan
+                </span>,
+                <span className="text-aksen" key="b">
+                  juara
+                </span>,
+              ]}
             />
           </div>
-        </div>
 
-        <div className="mt-px grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2">
-          {PERAN.map((p, i) => (
-            <Reveal key={p.href} delay={i * 90} className="flex">
-            <Link
-              href={p.href}
-              className="group flex w-full flex-col gap-3 bg-ink-800 p-7 transition-colors hover:bg-ink-700 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-aksen"
-            >
-              <span className="font-mono text-[11px] tracking-[0.2em] text-aksen">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <div className="flex items-baseline justify-between gap-3">
-                <h3 className="judul text-[24px]">{p.nama}</h3>
-                <span
-                  aria-hidden
-                  className="text-aksen transition-transform group-hover:translate-x-1"
-                >
-                  →
-                </span>
-              </div>
-              <p className="font-mono text-[11px] tracking-[0.06em] text-muted">
-                {p.persona}
-              </p>
-              <p className="max-w-[42ch] text-[14px] leading-relaxed text-paper-dim">
-                {p.janji}
-              </p>
+          <Reveal delay={260} className="flex min-w-0 flex-col gap-6">
+            <p className="max-w-[42ch] text-[16px] leading-[1.55] text-paper-dim">
+              Ekosistem pemanduan bakat pencak silat tradisi Kota Palembang.
+              Satu sistem, empat sudut pandang — dari atlet yang mendaftar
+              sampai peta sebaran bakat yang dibaca Pemkot.
+            </p>
+            <Link href="/atlet" className="cta w-fit">
+              Mulai dari layar atlet
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+                <path
+                  d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </Link>
-            </Reveal>
-          ))}
+          </Reveal>
         </div>
-
-        <p className="mt-8 border-l-2 border-aksen/60 py-1 pl-4 text-[13px] leading-relaxed text-muted">
-          Seluruh angka di prototipe ini adalah data contoh, bukan data atlet
-          sungguhan.
-        </p>
       </section>
 
-      <footer className="border-t border-white/10 bg-ink-900">
-        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-10 sm:px-8">
-          <span className="label label-redup">Powered by</span>
-          <span className="judul text-[clamp(26px,5vw,44px)] text-paper">
-            Arah Karya Sinergi &times; NOZ Berkarya
+      {/* Pita statistik pada bagian terang — pergantian gelap/terang khas Apex. */}
+      <section className="bagian-terang bagian">
+        <div className="inner">
+          <Reveal>
+            <span className="label">Dalam angka</span>
+          </Reveal>
+          <div className="mt-10 grid grid-cols-2 gap-10 lg:grid-cols-4">
+            {[
+              {
+                angka: totalAtlet.toLocaleString("id-ID"),
+                label: "Atlet terdata",
+              },
+              { angka: totalPerguruan, label: "Perguruan & padepokan" },
+              { angka: 18, label: "Kecamatan terpetakan" },
+              { angka: berlangsung, label: "Event berlangsung" },
+            ].map((s, i) => (
+              <Reveal key={s.label} delay={i * 80}>
+                <Statistik angka={s.angka} label={s.label} />
+              </Reveal>
+            ))}
+          </div>
+          <p className="mt-10 max-w-[52ch] text-[13px] leading-relaxed text-ink-500">
+            Seluruh angka di prototipe ini adalah data contoh, bukan data atlet
+            sungguhan.
+          </p>
+        </div>
+      </section>
+
+      <section className="bagian-gelap bagian">
+        <div className="inner">
+          <Reveal>
+            <span className="label">Pilih sudut pandang</span>
+          </Reveal>
+          <RevealBaris
+            className="judul judul-bagian mt-4"
+            baris={["Empat peran,", "satu data"]}
+          />
+
+          <div className="mt-12 grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2">
+            {PERAN.map((p, i) => (
+              <Reveal key={p.href} delay={i * 90} className="flex">
+                <Link
+                  href={p.href}
+                  className="group flex w-full flex-col gap-3 bg-ink-800 p-7 transition-colors hover:bg-ink-700 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-aksen"
+                >
+                  <span className="font-mono text-[12px] tracking-[0.2em] text-aksen">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="judul text-[30px]">{p.nama}</h3>
+                    <span
+                      aria-hidden
+                      className="text-aksen transition-transform group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </div>
+                  <p className="font-mono text-[11px] tracking-[0.06em] text-muted">
+                    {p.persona}
+                  </p>
+                  <p className="max-w-[32ch] text-[14px] leading-relaxed text-paper-dim">
+                    {p.janji}
+                  </p>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-white/[0.07] bg-ink-900 pt-20 pb-10">
+        <div className="inner flex flex-col gap-3">
+          <span className="label">Powered by</span>
+          <span className="footer-besar">
+            Arah Karya Sinergi
+            <br />
+            &times; NOZ Berkarya
           </span>
+          <div className="mt-14 flex flex-wrap justify-between gap-3 border-t border-white/[0.07] pt-6 font-mono text-[11px] tracking-[0.1em] text-muted uppercase">
+            <span>INORGA — Prototipe Demo</span>
+            <span>Palembang · 2026</span>
+          </div>
         </div>
       </footer>
     </main>

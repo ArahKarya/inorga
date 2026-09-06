@@ -8,20 +8,22 @@ import { ASPEK_INTI, TREN_INTI } from "@/data/penilaian";
  * Palet seri kategoris — divalidasi ulang terhadap LATAR GELAP setelah
  * peralihan ke sistem visual Apex, bukan sekadar dibalik dari versi terang.
  * Lolos seluruh pemeriksaan: band lightness, chroma floor, separasi CVD
- * ΔE 15,5 (deuteranopia), dan kontras ≥ 3:1 terhadap permukaan gelap.
+ * ΔE 14,5 (protanopia), dan kontras ≥ 3:1 terhadap permukaan gelap.
  * Ungu diangkat dari #5b4fc7 ke #7b6ee0 karena versi lama hanya 2,81:1.
+ * Ambar diganti #c2660a -> #a8880f agar tidak rancu dengan aksen oranye merek.
  */
 const WARNA_ASPEK: Record<string, string> = {
   "kebenaran-gerak": "#00a09a",
-  kemantapan: "#c2660a",
+  kemantapan: "#a8880f",
   penghayatan: "#7b6ee0",
 };
 
 /**
- * Ramp sekuensial satu hue untuk magnitudo sebaran atlet. Di latar gelap
- * arahnya dibalik: makin banyak atlet, makin terang — redup berarti sedikit.
+ * Ramp sekuensial satu hue untuk magnitudo sebaran atlet — memakai hue aksen
+ * agar sewarna dengan sistem. Di latar gelap arahnya dibalik: makin banyak
+ * atlet makin terang, redup berarti sedikit.
  */
-const RAMP = ["#24494b", "#2b6462", "#348b87", "#3db3ac", "#57d8d0"];
+const RAMP = ["#4a2517", "#78381c", "#a54c1f", "#d06226", "#f2823e"];
 
 const langkahRamp = (nilai: number, maks: number): string => {
   const i = Math.min(RAMP.length - 1, Math.floor((nilai / maks) * RAMP.length));
@@ -254,7 +256,7 @@ export function PetaSebaran() {
           <path
             d="M2 66 C 20 62, 30 58, 44 60 C 58 62, 70 54, 82 48 C 90 44, 96 42, 99 41"
             fill="none"
-            stroke="#24424c"
+            stroke="#33343a"
             strokeWidth="5"
             strokeLinecap="round"
           />

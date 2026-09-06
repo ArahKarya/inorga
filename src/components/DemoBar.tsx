@@ -31,13 +31,13 @@ export function DemoBar() {
      */
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink-900/90 backdrop-blur-md">
-        <div className="mx-auto flex h-[56px] max-w-7xl items-center gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-[18px] py-[18px] sm:px-8">
           <Link
             href="/"
             className="brand flex shrink-0 items-center gap-2.5 text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aksen"
           >
             <LogoMark />
-            <span className="hidden font-mono text-[13px] tracking-[0.2em] text-paper uppercase sm:block">
+            <span className="hidden font-mono text-[14px] tracking-[0.2em] text-paper uppercase sm:block">
               Inorga
             </span>
           </Link>
@@ -65,7 +65,7 @@ export function DemoBar() {
             })}
           </nav>
 
-          <span className="hidden shrink-0 border border-white/25 px-2.5 py-1.5 font-mono text-[10px] tracking-[0.14em] text-muted uppercase lg:block">
+          <span className="hidden shrink-0 border border-white/25 px-2.5 py-1.5 font-mono text-[11px] tracking-[0.14em] text-muted uppercase lg:block">
             Data contoh
           </span>
 
@@ -73,7 +73,7 @@ export function DemoBar() {
             type="button"
             onClick={() => setPanelTerbuka(true)}
             data-open={panelTerbuka}
-            className="ajakan hidden shrink-0 cursor-pointer border border-white/35 bg-transparent px-4 py-2.5 font-mono text-[11px] tracking-[0.14em] text-paper uppercase transition-colors hover:bg-paper hover:text-ink-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aksen md:block"
+            className="ajakan tombol-garis hidden shrink-0 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aksen md:block"
           >
             Ajukan paparan <span className="plus">+</span>
           </button>
