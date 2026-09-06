@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Statistik } from "@/components/ui";
+import { Reveal, RevealBaris } from "@/components/motion";
 import { totalAtlet, totalPerguruan } from "@/data/wilayah";
 import { EVENTS } from "@/data/event";
 
@@ -40,27 +41,44 @@ export default function Beranda() {
   return (
     <main>
       <section className="mx-auto max-w-6xl px-5 pt-14 pb-16 sm:px-8 sm:pt-20">
-        <span className="label">Prototipe Demo</span>
-        <h1 className="judul judul-berat mt-5 max-w-[16ch] text-[clamp(42px,9vw,104px)]">
-          Mendigitalkan tradisi,{" "}
-          <span className="text-aksen">menemukan juara</span>
-        </h1>
-        <p className="mt-7 max-w-[56ch] text-[16px] leading-relaxed text-paper-dim">
-          Ekosistem pemanduan bakat pencak silat tradisi Kota Palembang. Satu
-          sistem, empat sudut pandang — dari atlet yang mendaftar sampai peta
-          sebaran bakat yang dibaca Pemkot.
-        </p>
+        <Reveal>
+          <span className="label">Prototipe Demo</span>
+        </Reveal>
+        <RevealBaris
+          sebagai="h1"
+          className="judul judul-berat mt-5 max-w-[16ch] text-[clamp(42px,9vw,104px)]"
+          baris={[
+            "Mendigitalkan",
+            "tradisi,",
+            <span className="text-aksen" key="a">
+              menemukan
+            </span>,
+            <span className="text-aksen" key="b">
+              juara
+            </span>,
+          ]}
+        />
+        <Reveal delay={260}>
+          <p className="mt-7 max-w-[56ch] text-[16px] leading-relaxed text-paper-dim">
+            Ekosistem pemanduan bakat pencak silat tradisi Kota Palembang. Satu
+            sistem, empat sudut pandang — dari atlet yang mendaftar sampai peta
+            sebaran bakat yang dibaca Pemkot.
+          </p>
+        </Reveal>
       </section>
 
       <section className="border-y border-white/10 bg-ink-700">
         <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-5 py-10 sm:px-8 lg:grid-cols-4">
-          <Statistik
-            angka={totalAtlet.toLocaleString("id-ID")}
-            label="Atlet terdata"
-          />
-          <Statistik angka={totalPerguruan} label="Perguruan & padepokan" />
-          <Statistik angka={18} label="Kecamatan terpetakan" />
-          <Statistik angka={berlangsung} label="Event berlangsung" />
+          {[
+            { angka: totalAtlet.toLocaleString("id-ID"), label: "Atlet terdata" },
+            { angka: totalPerguruan, label: "Perguruan & padepokan" },
+            { angka: 18, label: "Kecamatan terpetakan" },
+            { angka: berlangsung, label: "Event berlangsung" },
+          ].map((s, i) => (
+            <Reveal key={s.label} delay={i * 80}>
+              <Statistik angka={s.angka} label={s.label} />
+            </Reveal>
+          ))}
         </div>
       </section>
 
@@ -68,16 +86,19 @@ export default function Beranda() {
         <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-3">
           <div className="flex flex-col gap-2">
             <span className="label">Pilih sudut pandang</span>
-            <h2 className="judul text-[26px]">Empat peran, satu data</h2>
+            <RevealBaris
+              className="judul text-[26px]"
+              baris={["Empat peran, satu data"]}
+            />
           </div>
         </div>
 
         <div className="mt-px grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2">
           {PERAN.map((p, i) => (
+            <Reveal key={p.href} delay={i * 90} className="flex">
             <Link
-              key={p.href}
               href={p.href}
-              className="group flex flex-col gap-3 bg-ink-800 p-7 transition-colors hover:bg-ink-700 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-aksen"
+              className="group flex w-full flex-col gap-3 bg-ink-800 p-7 transition-colors hover:bg-ink-700 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-aksen"
             >
               <span className="font-mono text-[11px] tracking-[0.2em] text-aksen">
                 {String(i + 1).padStart(2, "0")}
@@ -98,6 +119,7 @@ export default function Beranda() {
                 {p.janji}
               </p>
             </Link>
+            </Reveal>
           ))}
         </div>
 

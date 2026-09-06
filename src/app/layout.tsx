@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Inter, JetBrains_Mono } from "next/font/google";
 import { DemoBar } from "@/components/DemoBar";
+import { SmoothScroll } from "@/components/motion";
 import "./globals.css";
 
 /**
@@ -52,6 +53,7 @@ export default function RootLayout({
       className={`${archivo.variable} ${inter.variable} ${mono.variable}`}
     >
       <body className="min-h-dvh bg-ink-800 antialiased">
+        <SmoothScroll />
         <DemoBar />
         <div className="pt-[56px]">{children}</div>
       </body>

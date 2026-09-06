@@ -100,3 +100,62 @@ body {
 .animate-panggil {
   animation: denyut-panggil 1.8s ease-in-out infinite;
 }
+
+/* ==========================================================================
+   Lapisan gerak — mekanik yang sama dengan referensi Apex Lab:
+   logo yang menggambar diri (stroke-dashoffset) + glyph tersapu (clip-path),
+   dial berputar berkala, reveal baris bertopeng, fade-up bertahap,
+   plus berputar, dan panel geser dengan latar meredup.
+   ========================================================================== */
+@keyframes ringDraw { from { stroke-dashoffset: var(--ring-c, 201); } to { stroke-dashoffset: 0; } }
+@keyframes sapu { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes putarBerkala { 0% { transform: rotate(0deg); } 12% { transform: rotate(1turn); } 100% { transform: rotate(1turn); } }
+@keyframes naikPudar { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes barisMasuk { from { transform: translateY(110%); } to { transform: translateY(0); } }
+@keyframes latarMasuk { from { opacity: 0; } to { opacity: 1; } }
+@keyframes geserKanan { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes geserBawah { from { transform: translateY(100%); } to { transform: none; } }
+
+/* logo bergerak */
+.logo-mark { width: 32px; height: 32px; display: block; overflow: visible; }
+.logo-mark .ring { stroke-dasharray: var(--ring-c, 201); animation: ringDraw 5s ease-in-out infinite alternate; }
+.logo-mark .glyph { animation: sapu 5s ease-in-out infinite alternate; }
+.logo-mark .dial { transform-origin: 50% 50%; animation: putarBerkala 6s cubic-bezier(0.65, 0, 0.35, 1) infinite; }
+.brand:hover .logo-mark .dial { animation-duration: 0.65s; }
+
+/* plus berputar pada tombol ajakan */
+.plus { display: inline-block; transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1); }
+.ajakan:hover .plus, .ajakan[data-open="true"] .plus { transform: rotate(135deg); }
+
+/* reveal saat gulir */
+.reveal { opacity: 0; }
+.reveal[data-in="true"] { animation: naikPudar 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.baris-topeng { display: block; overflow: hidden; }
+.baris-topeng > span { display: block; transform: translateY(110%); }
+.baris-topeng[data-in="true"] > span { animation: barisMasuk 0.85s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/*
+ * Penuntas: memaksa keadaan akhir. Deklarasi !important mengalahkan animasi
+ * dalam kaskade, sehingga tetap berlaku meski animasi beku di t=0.
+ */
+.reveal.gerak-tuntas { opacity: 1 !important; transform: none !important; }
+.baris-topeng.gerak-tuntas > span { transform: none !important; }
+
+/* panel geser */
+.latar-panel { animation: latarMasuk 0.35s ease both; }
+.panel-geser { animation: geserKanan 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (max-width: 620px) {
+  .panel-geser { animation-name: geserBawah; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-mark .ring,
+  .logo-mark .glyph,
+  .logo-mark .dial,
+  .reveal[data-in="true"],
+  .baris-topeng[data-in="true"] > span,
+  .latar-panel,
+  .panel-geser { animation: none !important; }
+  .reveal { opacity: 1; }
+  .baris-topeng > span { transform: none; }
+}
