@@ -71,7 +71,12 @@ export default function Beranda() {
             </p>
             <Link href="/atlet" className="cta w-fit">
               Mulai dari layar atlet
-              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+              >
                 <path
                   d="M3 8h9M8.5 4.5 12 8l-3.5 3.5"
                   stroke="currentColor"

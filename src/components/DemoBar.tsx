@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LogoMark } from "@/components/LogoMark";
 import { PanelPaparan } from "@/components/PanelPaparan";
+import { hapusSemuaState } from "@/lib/simpan";
 
 /**
  * Bilah atas bergaya Apex: tetap di tempat, latar gelap, navigasi mono huruf
@@ -15,7 +16,9 @@ const PERAN = [
   { href: "/atlet", label: "Atlet" },
   { href: "/perguruan", label: "Perguruan" },
   { href: "/panitia", label: "Panitia" },
+  { href: "/juri", label: "Juri" },
   { href: "/pemkot", label: "Pemkot" },
+  { href: "/klasemen", label: "Klasemen" },
 ];
 
 export function DemoBar() {
@@ -44,7 +47,7 @@ export function DemoBar() {
 
           <nav
             aria-label="Pilih peran"
-            className="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto sm:gap-7"
+            className="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto [scrollbar-width:none] sm:gap-7 [&::-webkit-scrollbar]:hidden"
           >
             {PERAN.map((p) => {
               const aktif = pathname.startsWith(p.href);
@@ -64,6 +67,18 @@ export function DemoBar() {
               );
             })}
           </nav>
+
+          <button
+            type="button"
+            onClick={() => {
+              hapusSemuaState();
+              window.location.reload();
+            }}
+            title="Kembalikan antrian, nilai juri, dan undian ke keadaan awal"
+            className="hidden shrink-0 border border-white/25 px-2.5 py-1.5 font-mono text-[11px] tracking-[0.14em] text-muted uppercase transition-colors hover:border-white/60 hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aksen lg:block"
+          >
+            Reset demo
+          </button>
 
           <span className="hidden shrink-0 border border-white/25 px-2.5 py-1.5 font-mono text-[11px] tracking-[0.14em] text-muted uppercase lg:block">
             Data contoh

@@ -10,7 +10,7 @@
  *   perbandingan lintas-event. Lihat temuan G13.
  */
 
-export type Peran = "atlet" | "perguruan" | "panitia" | "pemkot";
+export type Peran = "atlet" | "perguruan" | "panitia" | "pemkot" | "juri";
 
 export type Zona = "Ilir" | "Ulu";
 
@@ -100,11 +100,19 @@ export interface Pendaftaran {
   didaftarkanOleh?: string;
 }
 
+export interface JadwalArena {
+  kategoriId: string;
+  hari: 1 | 2;
+  mulai: string;
+  selesai: string;
+}
+
 export interface Arena {
   id: string;
   nama: string;
   eventId: string;
   kategoriAktifId: string;
+  jadwal: JadwalArena[];
 }
 
 export type StatusAntrian = "selesai" | "tampil" | "dipanggil" | "menunggu";
@@ -139,6 +147,36 @@ export interface Nilai {
   aspekId: string;
   nilai: number;
   juriId: string;
+  waktu: string;
+  /** Nilai terkunci begitu juri mengirim; tidak bisa diubah dari layar mana pun. */
+  terkunci: boolean;
+}
+
+export interface Juri {
+  id: string;
+  nama: string;
+  lisensi: string;
+  masaBerlaku: string;
+  arenaId: string;
+}
+
+/**
+ * Rekaman undian urutan tampil. Benih dan daftar peserta asal disimpan agar
+ * siapa pun bisa menjalankan ulang pengacakan dan mendapat urutan yang sama.
+ */
+export interface Undian {
+  id: string;
+  eventId: string;
+  kategoriId: string;
+  arenaId: string;
+  benih: number;
+  versiAlgoritma: 1;
+  /** atletId terurut naik — masukan deterministik untuk pengacakan. */
+  pesertaAsal: string[];
+  urutan: string[];
+  waktu: string;
+  saksi: string[];
+  terkunci: boolean;
 }
 
 export type Medali = "emas" | "perak" | "perunggu" | null;
@@ -152,4 +190,12 @@ export interface Hasil {
   medali: Medali;
   totalNilai: number;
   nomorSertifikat: string;
+  /** "sistem" punya NILAI juri pendukung; "arsip" adalah medali pra-sistem. */
+  sumber: "sistem" | "arsip";
+}
+
+export interface TrenTitik {
+  event: string;
+  tanggal: string;
+  nilai: Record<string, number>;
 }

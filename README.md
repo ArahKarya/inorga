@@ -22,14 +22,14 @@ melihatnya dari sudut berbeda.
 
 ## ✨ Kenapa INORGA
 
-| Masalah | Solusi |
-|---|---|
-| 1.063 atlet & 74 perguruan tak pernah terdata terpusat | Basis data tunggal per atlet: identitas, perguruan, riwayat event |
-| Panitia panggil peserta lewat pengeras suara/manual | Panel panitia: antrian matras + tombol panggil, status berubah langsung di layar atlet |
-| Pengurus perguruan kumpulkan fotokopi berkas manual | Pendaftaran kolektif per perguruan, kelengkapan data terpantau |
-| Pemkot & KORMI tak punya gambaran sebaran bakat | Dashboard kota: peta sebaran, peringkat kecamatan, statistik event |
-| Anak di bawah umur ikut event tanpa jalur consent | Model atlet menyertakan wali — sesuai kewajiban UU PDP |
-| Koneksi GOR tidak bisa diandalkan | Mode luring di panel panitia — simulasi putus-sambung sudah dirancang dari awal |
+| Masalah                                                | Solusi                                                                                 |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| 1.063 atlet & 74 perguruan tak pernah terdata terpusat | Basis data tunggal per atlet: identitas, perguruan, riwayat event                      |
+| Panitia panggil peserta lewat pengeras suara/manual    | Panel panitia: antrian matras + tombol panggil, status berubah langsung di layar atlet |
+| Pengurus perguruan kumpulkan fotokopi berkas manual    | Pendaftaran kolektif per perguruan, kelengkapan data terpantau                         |
+| Pemkot & KORMI tak punya gambaran sebaran bakat        | Dashboard kota: peta sebaran, peringkat kecamatan, statistik event                     |
+| Anak di bawah umur ikut event tanpa jalur consent      | Model atlet menyertakan wali — sesuai kewajiban UU PDP                                 |
+| Koneksi GOR tidak bisa diandalkan                      | Mode luring di panel panitia — simulasi putus-sambung sudah dirancang dari awal        |
 
 ## 🏛️ Arsitektur
 
@@ -65,17 +65,25 @@ kapan saja di depan audiens, tanpa logout/login.
 Urutan disengaja: pengalaman individu dulu, dampak kelembagaan terakhir.
 Pengambil keputusan baru percaya pada peta setelah melihat dari mana datanya berasal.
 
-| # | Layar | Yang ditunjukkan | Kalimat pembuka |
-|---|-------|------------------|-----------------|
-| 1 | **Beranda** | Skala: 1.063 atlet, 74 perguruan, 18 kecamatan | "Ini yang selama ini tidak pernah terdata." |
-| 2 | **Atlet** | Panggilan arena real-time, kartu QR, daftar 1 klik, rapor, portofolio | "Andi, 16 tahun, sedang menunggu giliran di Jakabaring." |
-| 3 | **Panitia** | Antrian matras, tombol panggil, mode luring, check-in QR | "Panitia menekan satu tombol — Andi langsung tahu." |
-| 4 | **Perguruan** | Binaan, kelengkapan data, pendaftaran kolektif | "Pengurus tidak perlu lagi mengumpulkan fotokopi." |
-| 5 | **Pemkot & KORMI** | Peta sebaran bakat, peringkat kecamatan, statistik event | "Dan inilah yang selama ini tidak bisa dilihat siapa pun." |
+| #   | Layar                   | Yang ditunjukkan                                                                         | Kalimat pembuka                                                            |
+| --- | ----------------------- | ---------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| 1   | **Beranda**             | Skala: 1.063 atlet, 71 perguruan, 18 kecamatan                                           | "Ini yang selama ini tidak pernah terdata."                                |
+| 2   | **Atlet**               | Panggilan arena real-time, kartu QR, daftar 1 klik, rapor, portofolio bersertifikat      | "Andi, 16 tahun, sedang menunggu giliran di Jakabaring."                   |
+| 3   | **Panitia** + **Arena** | Antrian matras, tombol panggil, mode luring; papan skor layar besar di `/arena/matras-a` | "Panitia menekan satu tombol — layar arena dan HP Andi berubah bersamaan." |
+| 4   | **Juri**                | Nilai aspek inti + ekstensi, rerata terpangkas, kunci                                    | "Tiga juri, tiga tablet, nol tabulasi manual."                             |
+| 5   | **Hasil & Klasemen**    | `/event/e-walikota/hasil` lalu `/klasemen`                                               | "Nilai yang baru dikunci langsung jadi peringkat dan medali."              |
+| 6   | **Undian**              | Urutan tampil dengan benih tercatat, verifikasi ulang                                    | "Siapa pun bisa mengulang perhitungannya."                                 |
+| 7   | **Perguruan**           | Binaan (klik → profil), pendaftaran kolektif                                             | "Pengurus tidak perlu lagi mengumpulkan fotokopi."                         |
+| 8   | **Pemkot & KORMI**      | Peta sebaran → toggle peta kesenjangan                                                   | "Bukan hanya di mana atlet ada — tapi di mana pembinaan belum ada."        |
 
-**Momen paling kuat:** buka layar Atlet dan Panitia berdampingan di dua
-perangkat. Tekan "Panggil peserta berikutnya" di panel panitia — status di
-layar atlet berubah.
+**Momen paling kuat — dua layar.** Buka `/arena/matras-a` di proyektor dan
+`/panitia` di HP. Tekan "Panggil peserta berikutnya" — papan skor berubah
+tanpa reload (sinkron lewat `localStorage` + event `storage`). Lalu buka
+`/juri`, kunci nilai untuk peserta yang tampil — skor berjalan di arena,
+hasil sementara, klasemen, dan rapor atlet ikut berubah.
+
+Tombol **Reset demo** di bilah atas mengembalikan semua ke keadaan awal
+sebelum presentasi berikutnya.
 
 ## ⚠️ Yang disimulasikan (belum sungguhan)
 
@@ -86,12 +94,12 @@ kedudukan — dikarang untuk keperluan demo dan tidak berasal dari sumber
 resmi organisasi mana pun. Bilah atas menandai ini secara permanen agar
 tidak ada salah paham saat presentasi.
 
-| Fitur | Status demo |
-|---|---|
+| Fitur               | Status demo                                                                                             |
+| ------------------- | ------------------------------------------------------------------------------------------------------- |
 | Verifikasi Dukcapil | Lencana "terverifikasi" masih simulasi — akses via Pemkot sudah dipastikan tersedia, PKS belum berjalan |
-| OTP WhatsApp | Belum ada — login dilewati untuk demo |
-| Basis data | Statik di `src/data/`, belum di Postgres |
-| Sinkronisasi luring | Tombol "Simulasikan koneksi putus" memperagakan perilaku, belum ada lapisan sinkronisasi sungguhan |
+| OTP WhatsApp        | Belum ada — login dilewati untuk demo                                                                   |
+| Basis data          | Statik di `src/data/`, belum di Postgres                                                                |
+| Sinkronisasi luring | Tombol "Simulasikan koneksi putus" memperagakan perilaku, belum ada lapisan sinkronisasi sungguhan      |
 
 Jangan menjanjikan keempatnya sebagai sudah jalan. Tunjukkan sebagai alur.
 
@@ -119,18 +127,26 @@ produksi tanpa ditulis ulang.
 ```
 src/
 ├── app/
-│   ├── page.tsx          # beranda & pengalih peran
-│   ├── atlet/            # kartu anggota, event, rapor, portofolio
-│   ├── perguruan/        # binaan & pendaftaran kolektif
-│   ├── panitia/          # antrian arena & check-in
-│   └── pemkot/           # dashboard kota
-├── components/
-│   ├── DemoBar.tsx       # pengalih peran
-│   ├── charts.tsx        # grafik tren & peta sebaran
-│   └── ui.tsx            # komponen bersama
-├── data/                 # data contoh (atlet, perguruan, event, penilaian, wilayah)
-└── lib/types.ts          # model data
+│   ├── (utama)/          # layar biasa: bilah peran + gulir halus
+│   │   ├── page.tsx      # beranda
+│   │   ├── atlet/[id]    # profil atlet (persona demo di /atlet)
+│   │   ├── perguruan/    # binaan → klik ke profil
+│   │   ├── panitia/      # antrian arena & check-in
+│   │   ├── juri/         # panel penilaian (peran ke-5)
+│   │   ├── pemkot/       # dashboard kota + peta kesenjangan
+│   │   ├── klasemen/     # medali per perguruan & kecamatan
+│   │   ├── event/[id]    # detail event + /hasil
+│   │   ├── undian/       # undian berbenih yang bisa diverifikasi
+│   │   └── sertifikat/[slug]  # verifikasi publik
+│   └── (layar)/arena/[id]     # papan skor proyektor, tanpa bilah
+├── components/           # DemoBar, ProfilAtlet, charts, motion, ui
+├── data/                 # data contoh; nilai juri & hasil DIBANGKITKAN dari skor target
+└── lib/                  # turunan murni: hasil, klasemen, undian, kesenjangan, sertifikat, simpan
 ```
+
+Konsistensi data dijamin secara konstruksi: `HASIL` diturunkan dari `NILAI`,
+`NILAI` dibangkitkan dari skor target, antrian Matras A diturunkan dari
+rekaman undian berbenih. `src/data/cek.ts` memeriksa sisanya.
 
 ## 🚀 Quickstart
 
@@ -141,9 +157,13 @@ pnpm dev          # http://localhost:3000
 
 ## ✅ Status
 
-- [x] Empat peran (Atlet, Panitia, Perguruan, Pemkot/KORMI) dengan pengalih demo
+- [x] Lima peran (Atlet, Panitia, Juri, Perguruan, Pemkot/KORMI) dengan pengalih demo
 - [x] Model data mengikuti temuan bedah kelayakan (NIK, wali, penilaian per-baris)
 - [x] Palet grafik tervalidasi buta warna
+- [x] Papan skor arena tersinkron antar-tab/perangkat
+- [x] Klasemen, hasil event (inti | ekstensi), verifikasi sertifikat publik
+- [x] Undian berbenih yang bisa direproduksi
+- [x] Peta kesenjangan pembinaan
 - [ ] Verifikasi Dukcapil (PKS belum berjalan)
 - [ ] OTP WhatsApp
 - [ ] Backend Postgres + Prisma (masih statik di `src/data/`)
@@ -155,6 +175,7 @@ pnpm dev          # http://localhost:3000
 Next.js 16 · React 19 · Tailwind 4 · TypeScript · qrcode.react
 
 **Catatan teknis:**
+
 - Palet seri grafik divalidasi untuk buta warna (ΔE 15,5 pada deuteranopia).
 - Peta melabeli 15 dari 18 kecamatan; tiga terkecil muncul saat kursor
   diarahkan, agar label tidak bertumpuk di kluster tengah.
