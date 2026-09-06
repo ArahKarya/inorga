@@ -89,6 +89,15 @@ export default function Beranda() {
           </Link>
         ))}
       </div>
+
+      <footer className="mt-10 flex flex-col gap-1 border-t border-gading-300 pt-5">
+        <span className="font-mono text-[10px] tracking-[0.16em] text-teal-950/40 uppercase">
+          Powered by
+        </span>
+        <span className="text-[13px] font-semibold text-teal-950/70">
+          Arah Karya Sinergi &times; NOZ Berkarya
+        </span>
+      </footer>
     </main>
   );
 }

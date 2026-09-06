@@ -10,7 +10,7 @@
 
 </div>
 
-> Produk **Arah Karya Sinergi (AKS)**.
+> Powered by **Arah Karya Sinergi (AKS)** × **NOZ Berkarya**.
 
 Pencak silat tradisi di Kota Palembang punya ribuan atlet aktif, puluhan
 perguruan, dan event rutin lintas kecamatan — tapi selama ini **tidak pernah
@@ -165,5 +165,5 @@ Next.js 16 · React 19 · Tailwind 4 · TypeScript · qrcode.react
 ---
 
 <div align="center">
-<sub>© 2026 Arah Karya Sinergi (AKS)</sub>
+<sub>Powered by <b>AKS × NOZ Berkarya</b><br>© 2026 Arah Karya Sinergi (AKS) &amp; NOZ Berkarya</sub>
 </div>
