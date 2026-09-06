@@ -1,28 +1,28 @@
 import type { ReactNode } from "react";
 
+/** Panel gelap bergaris rambut — pengganti kartu putih pada sistem lama. */
 export function Kartu({
   children,
   className = "",
-  warna = "bg-white",
+  warna = "bg-ink-700",
 }: {
   children: ReactNode;
   className?: string;
   /**
-   * Warna latar kartu. Dilewatkan lewat prop, bukan lewat `className`, karena
+   * Warna latar panel. Dilewatkan lewat prop, bukan lewat `className`, karena
    * dua utility background pada elemen yang sama saling meniadakan di Tailwind —
    * urutan pemenangnya ditentukan stylesheet, bukan urutan penulisan kelas.
    */
   warna?: string;
 }) {
   return (
-    <div
-      className={`rounded-2xl border border-gading-300/70 shadow-[0_1px_2px_rgba(6,43,45,0.05)] ${warna} ${className}`}
-    >
+    <div className={`border border-white/10 ${warna} ${className}`}>
       {children}
     </div>
   );
 }
 
+/** Kepala bagian ala Apex: label mono beraksen di atas judul display berat. */
 export function JudulBagian({
   eyebrow,
   judul,
@@ -33,16 +33,10 @@ export function JudulBagian({
   aksi?: ReactNode;
 }) {
   return (
-    <div className="flex items-end justify-between gap-3">
-      <div className="flex flex-col gap-0.5">
-        {eyebrow ? (
-          <span className="font-mono text-[10px] font-medium tracking-[0.14em] text-teal-700/70 uppercase">
-            {eyebrow}
-          </span>
-        ) : null}
-        <h2 className="text-[17px] font-bold tracking-tight text-teal-950">
-          {judul}
-        </h2>
+    <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-3">
+      <div className="flex flex-col gap-2">
+        {eyebrow ? <span className="label">{eyebrow}</span> : null}
+        <h2 className="judul text-[22px] sm:text-[26px]">{judul}</h2>
       </div>
       {aksi}
     </div>
@@ -50,11 +44,11 @@ export function JudulBagian({
 }
 
 const NADA = {
-  hijau: "bg-emerald-50 text-emerald-800 border-emerald-200",
-  kuning: "bg-amber-50 text-amber-800 border-amber-200",
-  merah: "bg-rose-50 text-rose-800 border-rose-200",
-  cyan: "bg-cyan-50 text-teal-800 border-cyan-200",
-  netral: "bg-gading-100 text-teal-800 border-gading-300",
+  hijau: "border-emerald-400/40 text-emerald-300",
+  kuning: "border-amber-400/40 text-amber-300",
+  merah: "border-rose-400/40 text-rose-300",
+  cyan: "border-aksen/50 text-aksen",
+  netral: "border-white/20 text-paper-dim",
 } as const;
 
 export function Lencana({
@@ -66,17 +60,41 @@ export function Lencana({
 }) {
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-semibold ${NADA[nada]}`}
+      className={`inline-flex items-center gap-1 border px-2 py-1 font-mono text-[10px] tracking-[0.1em] uppercase ${NADA[nada]}`}
     >
       {children}
     </span>
   );
 }
 
+/** Catatan naratif untuk presenter — dibedakan dengan garis aksen di kiri. */
 export function CatatanDemo({ children }: { children: ReactNode }) {
   return (
-    <p className="rounded-xl border border-dashed border-teal-700/30 bg-teal-700/5 px-3 py-2 text-[12px] leading-relaxed text-teal-800">
+    <p className="border-l-2 border-aksen/60 py-1 pl-4 text-[13px] leading-relaxed text-paper-dim/80">
       {children}
     </p>
+  );
+}
+
+/** Angka besar beraksen + label mono — pita statistik khas Apex. */
+export function Statistik({
+  angka,
+  label,
+  ket,
+}: {
+  angka: ReactNode;
+  label: string;
+  ket?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <span className="tnum font-display text-[clamp(34px,6vw,56px)] leading-[0.9] font-black text-aksen">
+        {angka}
+      </span>
+      <span className="font-mono text-[10px] tracking-[0.14em] text-paper uppercase">
+        {label}
+      </span>
+      {ket ? <span className="text-[12px] text-muted">{ket}</span> : null}
+    </div>
   );
 }

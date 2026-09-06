@@ -11,10 +11,13 @@ import { ANTRIAN, ARENA, EVENTS, eventById, labelKategori } from "@/data/event";
 import { riwayatAtlet } from "@/data/penilaian";
 
 const WARNA_MEDALI = {
-  emas: "text-amber-700 bg-amber-50 border-amber-200",
-  perak: "text-slate-600 bg-slate-50 border-slate-200",
-  perunggu: "text-orange-800 bg-orange-50 border-orange-200",
+  emas: "border-emas/50 text-emas",
+  perak: "border-perak/50 text-perak",
+  perunggu: "border-perunggu/50 text-perunggu",
 } as const;
+
+const TOMBOL_UTAMA =
+  "w-full bg-aksen px-5 py-4 font-mono text-[12px] tracking-[0.14em] text-ink-900 uppercase transition-[filter] hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aksen";
 
 export default function HalamanAtlet() {
   const atlet = atletById(ATLET_DEMO)!;
@@ -28,196 +31,193 @@ export default function HalamanAtlet() {
   const riwayat = riwayatAtlet(atlet.id);
 
   return (
-    <main className="mx-auto flex max-w-2xl flex-col gap-5 px-4 py-6">
+    <main className="mx-auto flex max-w-3xl flex-col gap-10 px-4 py-8 sm:px-6">
       {/* Panggilan arena — momen paling menentukan dalam demo. */}
       {antrianSaya?.status === "dipanggil" && arena && eventArena ? (
-        <Kartu
-          warna="bg-teal-900"
-          className="animate-panggil overflow-hidden border-cyan-400"
-        >
-          <div className="flex flex-col gap-3 p-5">
-            <div className="flex items-center gap-2">
-              <span className="size-2 animate-pulse rounded-full bg-cyan-400" />
-              <span className="font-mono text-[10px] font-medium tracking-[0.16em] text-cyan-200 uppercase">
-                Giliran Anda — {arena.nama}
-              </span>
-            </div>
-            <p className="text-2xl leading-tight font-extrabold text-gading-50">
-              Nomor urut {antrianSaya.nomorUrut} dipanggil panitia
-            </p>
-            <p className="text-[13px] text-cyan-100/80">
-              {labelKategori(antrianSaya.kategoriId)} · perkiraan tampil pukul{" "}
-              <span className="tnum font-mono font-semibold text-gading-50">
-                {antrianSaya.jamPerkiraan} WIB
-              </span>
-            </p>
-            <p className="text-[12px] text-cyan-100/60">
-              {eventArena.lokasi}
-            </p>
+        <div className="animate-panggil border-2 border-aksen bg-aksen/10 p-6">
+          <div className="flex items-center gap-2.5">
+            <span className="size-2 animate-pulse rounded-full bg-aksen" />
+            <span className="label">Giliran Anda — {arena.nama}</span>
           </div>
-        </Kartu>
+          <p className="judul judul-berat mt-4 text-[clamp(30px,7vw,52px)] text-paper">
+            Nomor{" "}
+            <span className="tnum text-aksen">{antrianSaya.nomorUrut}</span>{" "}
+            dipanggil
+          </p>
+          <p className="mt-4 text-[14px] text-paper-dim">
+            {labelKategori(antrianSaya.kategoriId)} · perkiraan tampil{" "}
+            <span className="tnum font-mono font-semibold text-paper">
+              {antrianSaya.jamPerkiraan} WIB
+            </span>
+          </p>
+          <p className="mt-1 font-mono text-[11px] tracking-[0.06em] text-muted">
+            {eventArena.lokasi}
+          </p>
+        </div>
       ) : null}
 
-      {/* Kartu anggota digital */}
-      <Kartu className="overflow-hidden">
-        <div className="flex items-start gap-4 bg-teal-800 p-5 text-gading-50">
-          <div className="grid size-14 shrink-0 place-items-center rounded-full bg-cyan-400 text-lg font-bold text-teal-950">
+      {/* Identitas */}
+      <Kartu>
+        <div className="flex items-start gap-4 border-b border-white/10 p-6">
+          <div className="grid size-14 shrink-0 place-items-center rounded-full border-[1.5px] border-aksen font-display text-[18px] font-black text-aksen">
             {inisial(atlet.nama)}
           </div>
-          <div className="flex min-w-0 flex-col gap-1">
-            <h1 className="truncate text-lg leading-tight font-bold">{atlet.nama}</h1>
-            <p className="text-[13px] text-cyan-100/80">
+          <div className="flex min-w-0 flex-col gap-1.5">
+            <h1 className="judul text-[24px] text-paper">{atlet.nama}</h1>
+            <p className="text-[13px] text-paper-dim">
               {namaPerguruan(atlet.perguruanId)}
             </p>
-            <p className="font-mono text-[11px] text-cyan-100/60">
+            <p className="font-mono text-[11px] tracking-[0.06em] text-muted">
               Kec. {namaKecamatan(atlet.kecamatanId)} · {atlet.umur} tahun
             </p>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 border-b border-gading-200 px-5 py-3">
-          <Lencana nada="hijau">✓ Identitas terverifikasi Dukcapil</Lencana>
+        <div className="flex flex-wrap items-center gap-2 border-b border-white/10 px-6 py-4">
+          <Lencana nada="hijau">Terverifikasi Dukcapil</Lencana>
           {atlet.wali?.terverifikasi ? (
             <Lencana nada="cyan">Wali: {atlet.wali.nama}</Lencana>
           ) : null}
         </div>
 
-        <div className="p-5">
+        <div className="p-6">
           <button
             type="button"
             onClick={() => setBukaKartu((v) => !v)}
             aria-expanded={bukaKartu}
-            className="w-full rounded-xl border border-teal-700 px-4 py-2.5 text-[14px] font-semibold text-teal-800 transition-colors hover:bg-teal-700 hover:text-gading-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+            className="w-full border border-white/25 px-5 py-3.5 font-mono text-[12px] tracking-[0.14em] text-paper uppercase transition-colors hover:bg-paper hover:text-ink-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aksen"
           >
-            {bukaKartu ? "Tutup kartu anggota" : "Tampilkan kartu anggota (QR)"}
+            {bukaKartu ? "Tutup kartu anggota" : "Tampilkan kartu anggota"}
           </button>
 
           {bukaKartu ? (
-            <div className="mt-4 flex flex-col items-center gap-3 rounded-xl bg-gading-100 p-5">
+            <div className="mt-5 flex flex-col items-center gap-4 border border-white/10 bg-ink-600 p-6">
               <QRCodeSVG
                 value={`INORGA:${atlet.id}:${eventArena?.id ?? "—"}`}
-                size={168}
-                bgColor="#f0efea"
-                fgColor="#0e4547"
+                size={172}
+                bgColor="#2a2a2a"
+                fgColor="#22c3d6"
                 level="M"
               />
-              <p className="tnum font-mono text-[12px] tracking-wider text-teal-800">
+              <p className="tnum font-mono text-[12px] tracking-[0.2em] text-aksen">
                 {atlet.id.toUpperCase()}
               </p>
-              <p className="max-w-[34ch] text-center text-[12px] leading-relaxed text-teal-950/55">
-                Tunjukkan ke meja panitia untuk check-in. Menggantikan kartu fisik dan
-                fotokopi berkas.
+              <p className="max-w-[34ch] text-center text-[12px] leading-relaxed text-muted">
+                Tunjukkan ke meja panitia untuk check-in. Menggantikan kartu
+                fisik dan fotokopi berkas.
               </p>
             </div>
           ) : null}
         </div>
       </Kartu>
 
-      {/* Event terbuka — pendaftaran 1 klik */}
-      <section className="flex flex-col gap-3">
+      {/* Event terbuka */}
+      <section className="flex flex-col gap-5">
         <JudulBagian eyebrow="Radar kejuaraan" judul="Event terdekat" />
-        <Kartu className="p-5">
-          <div className="flex flex-col gap-1">
-            <h3 className="text-[15px] leading-snug font-bold text-teal-950">
-              {eventTerbuka.nama}
-            </h3>
-            <p className="text-[13px] text-teal-950/65">
-              {eventTerbuka.lokasi} · 15–17 Oktober 2026
-            </p>
-            <p className="font-mono text-[11px] text-teal-950/45">
-              {eventTerbuka.penyelenggara}
-            </p>
-          </div>
+        <Kartu className="p-6">
+          <h3 className="judul text-[19px] text-paper">{eventTerbuka.nama}</h3>
+          <p className="mt-2 text-[13px] text-paper-dim">
+            {eventTerbuka.lokasi} · 15–17 Oktober 2026
+          </p>
+          <p className="mt-1 font-mono text-[11px] tracking-[0.06em] text-muted">
+            {eventTerbuka.penyelenggara}
+          </p>
 
-          <div className="mt-4 flex items-center gap-2">
-            <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-gading-200">
+          <div className="mt-5 flex items-center gap-3">
+            <div className="h-1 flex-1 overflow-hidden bg-ink-500">
               <div
-                className="h-full rounded-full bg-teal-600"
+                className="h-full bg-aksen"
                 style={{
                   width: `${(eventTerbuka.jumlahPeserta / eventTerbuka.kuota) * 100}%`,
                 }}
               />
             </div>
-            <span className="tnum font-mono text-[11px] text-teal-950/55">
-              {eventTerbuka.jumlahPeserta}/{eventTerbuka.kuota} peserta
+            <span className="tnum font-mono text-[11px] text-muted">
+              {eventTerbuka.jumlahPeserta}/{eventTerbuka.kuota}
             </span>
           </div>
 
           {sudahDaftar ? (
-            <div className="mt-4 flex flex-col gap-1.5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3">
-              <p className="text-[14px] font-semibold text-emerald-900">
-                Terdaftar — Jurus Tunggal Baku, Remaja Putra
+            <div className="mt-5 border border-emerald-400/40 bg-emerald-400/5 px-5 py-4">
+              <p className="font-mono text-[12px] tracking-[0.12em] text-emerald-300 uppercase">
+                Terdaftar
               </p>
-              <p className="text-[12px] leading-relaxed text-emerald-800/80">
-                Data profil, atribut fisik, dan afiliasi perguruan terisi otomatis.
-                Nomor urut dan jadwal tampil dikirim setelah undian.
+              <p className="mt-2 text-[14px] text-paper">
+                Jurus Tunggal Baku · Remaja Putra
+              </p>
+              <p className="mt-1.5 text-[12px] leading-relaxed text-muted">
+                Data profil, atribut fisik, dan afiliasi perguruan terisi
+                otomatis. Nomor urut dikirim setelah undian.
               </p>
             </div>
           ) : (
             <button
               type="button"
               onClick={() => setSudahDaftar(true)}
-              className="mt-4 w-full rounded-xl bg-cyan-400 px-4 py-3 text-[15px] font-bold text-teal-950 transition-colors hover:bg-cyan-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+              className={`mt-5 ${TOMBOL_UTAMA}`}
             >
               Daftar sekarang — 1 klik
             </button>
           )}
         </Kartu>
         <CatatanDemo>
-          Tanpa aplikasi, langkah ini berarti mengisi formulir, memfotokopi KTP/KIA
-          dan kartu perguruan, lalu antre di meja panitia.
+          Tanpa aplikasi, langkah ini berarti mengisi formulir, memfotokopi
+          KTP/KIA dan kartu perguruan, lalu antre di meja panitia.
         </CatatanDemo>
       </section>
 
       {/* Rapor */}
-      <section className="flex flex-col gap-3">
+      <section className="flex flex-col gap-5">
         <JudulBagian eyebrow="Rapor" judul="Tren nilai aspek inti" />
-        <Kartu className="p-5">
+        <Kartu className="p-6">
           <GrafikTrenInti />
         </Kartu>
 
-        <Kartu className="grid grid-cols-2 gap-px overflow-hidden bg-gading-200 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 sm:grid-cols-4">
           {[
             { label: "Tinggi", nilai: `${atlet.tinggi} cm` },
             { label: "Berat", nilai: `${atlet.berat} kg` },
-            { label: "Rentang tangan", nilai: `${atlet.reach} cm` },
+            { label: "Reach", nilai: `${atlet.reach} cm` },
             { label: "Gol. darah", nilai: atlet.golonganDarah },
           ].map((a) => (
-            <div key={a.label} className="flex flex-col gap-0.5 bg-white px-4 py-3">
-              <span className="text-[11px] text-teal-950/50">{a.label}</span>
-              <span className="tnum font-mono text-[15px] font-semibold text-teal-950">
+            <div key={a.label} className="flex flex-col gap-1.5 bg-ink-700 p-4">
+              <span className="font-mono text-[10px] tracking-[0.14em] text-muted uppercase">
+                {a.label}
+              </span>
+              <span className="tnum font-display text-[20px] font-bold text-paper">
                 {a.nilai}
               </span>
             </div>
           ))}
-        </Kartu>
+        </div>
       </section>
 
       {/* Portofolio */}
-      <section className="flex flex-col gap-3">
+      <section className="flex flex-col gap-5">
         <JudulBagian
           eyebrow="Warisan digital"
           judul="Portofolio prestasi"
           aksi={
-            <span className="tnum font-mono text-[11px] text-teal-950/50">
-              {atlet.medali.emas}E · {atlet.medali.perak}P · {atlet.medali.perunggu}Pr
+            <span className="tnum font-mono text-[11px] tracking-[0.1em] text-muted">
+              {atlet.medali.emas}E · {atlet.medali.perak}P ·{" "}
+              {atlet.medali.perunggu}Pr
             </span>
           }
         />
-        <Kartu className="divide-y divide-gading-200">
+        <Kartu className="divide-y divide-white/10">
           {riwayat.map((r) => (
-            <div key={r.id} className="flex items-start gap-3 p-4">
+            <div key={r.id} className="flex items-start gap-4 p-5">
               <span
-                className={`mt-0.5 shrink-0 rounded-full border px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${WARNA_MEDALI[r.medali]}`}
+                className={`mt-0.5 shrink-0 border px-2 py-1 font-mono text-[10px] tracking-[0.1em] uppercase ${WARNA_MEDALI[r.medali]}`}
               >
                 {r.medali}
               </span>
-              <div className="flex min-w-0 flex-col gap-0.5">
-                <p className="text-[14px] leading-snug font-semibold text-teal-950">
+              <div className="flex min-w-0 flex-col gap-1">
+                <p className="text-[14px] leading-snug font-semibold text-paper">
                   {r.event}
                 </p>
-                <p className="text-[12px] text-teal-950/60">{r.kategori}</p>
-                <p className="font-mono text-[10px] text-teal-950/40">
+                <p className="text-[12px] text-paper-dim">{r.kategori}</p>
+                <p className="font-mono text-[10px] tracking-[0.06em] text-muted">
                   {r.tanggal} · {r.nomorSertifikat}
                 </p>
               </div>
@@ -225,8 +225,8 @@ export default function HalamanAtlet() {
           ))}
         </Kartu>
         <CatatanDemo>
-          Setiap sertifikat punya nomor unik dan halaman verifikasi publik, sehingga
-          keasliannya bisa dicek tanpa menghubungi penyelenggara.
+          Setiap sertifikat punya nomor unik dan halaman verifikasi publik,
+          sehingga keasliannya bisa dicek tanpa menghubungi penyelenggara.
         </CatatanDemo>
       </section>
     </main>

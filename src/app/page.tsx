@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Statistik } from "@/components/ui";
 import { totalAtlet, totalPerguruan } from "@/data/wilayah";
 import { EVENTS } from "@/data/event";
 
@@ -7,25 +8,29 @@ const PERAN = [
     href: "/atlet",
     nama: "Atlet",
     persona: "Andi Saputra · 16 tahun · PSHT",
-    janji: "Daftar event sekali klik, tahu kapan dipanggil ke matras, prestasi tersimpan permanen.",
+    janji:
+      "Daftar event sekali klik, tahu kapan dipanggil ke matras, prestasi tersimpan permanen.",
   },
   {
     href: "/perguruan",
     nama: "Perguruan",
     persona: "PSHT Cabang Palembang · 148 anggota",
-    janji: "Daftarkan binaan secara kolektif, pantau kelengkapan data dan prestasi mereka.",
+    janji:
+      "Daftarkan binaan secara kolektif, pantau kelengkapan data dan prestasi mereka.",
   },
   {
     href: "/panitia",
     nama: "Panitia Event",
     persona: "Matras A · Piala Walikota 2026",
-    janji: "Check-in QR, kendali antrian arena, dan panggilan peserta yang tersinkron.",
+    janji:
+      "Check-in QR, kendali antrian arena, dan panggilan peserta yang tersinkron.",
   },
   {
     href: "/pemkot",
     nama: "Pemkot & KORMI",
     persona: "Dashboard Kota Palembang",
-    janji: "Peta sebaran bakat per kecamatan, tren performa, dan statistik penyelenggaraan.",
+    janji:
+      "Peta sebaran bakat per kecamatan, tren performa, dan statistik penyelenggaraan.",
   },
 ];
 
@@ -33,70 +38,82 @@ export default function Beranda() {
   const berlangsung = EVENTS.filter((e) => e.status === "berlangsung").length;
 
   return (
-    <main className="mx-auto max-w-5xl px-5 py-10 sm:py-14">
-      <div className="flex flex-col gap-3">
-        <span className="font-mono text-[11px] font-medium tracking-[0.18em] text-teal-700 uppercase">
-          Prototipe demo
-        </span>
-        <h1 className="max-w-[20ch] text-4xl leading-[1.05] font-extrabold tracking-tight text-balance text-teal-950 sm:text-5xl">
-          Mendigitalkan tradisi, menemukan juara.
+    <main>
+      <section className="mx-auto max-w-6xl px-5 pt-14 pb-16 sm:px-8 sm:pt-20">
+        <span className="label">Prototipe Demo</span>
+        <h1 className="judul judul-berat mt-5 max-w-[16ch] text-[clamp(42px,9vw,104px)]">
+          Mendigitalkan tradisi,{" "}
+          <span className="text-aksen">menemukan juara</span>
         </h1>
-        <p className="max-w-[58ch] text-[15px] leading-relaxed text-teal-950/70">
-          Ekosistem pemanduan bakat pencak silat tradisi Kota Palembang. Satu sistem,
-          empat sudut pandang — dari atlet yang mendaftar sampai peta sebaran bakat
-          yang dibaca Pemkot.
+        <p className="mt-7 max-w-[56ch] text-[16px] leading-relaxed text-paper-dim">
+          Ekosistem pemanduan bakat pencak silat tradisi Kota Palembang. Satu
+          sistem, empat sudut pandang — dari atlet yang mendaftar sampai peta
+          sebaran bakat yang dibaca Pemkot.
         </p>
-      </div>
+      </section>
 
-      <div className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-y border-gading-300 py-4">
-        {[
-          { angka: totalAtlet.toLocaleString("id-ID"), label: "atlet terdata" },
-          { angka: totalPerguruan, label: "perguruan & padepokan" },
-          { angka: 18, label: "kecamatan terpetakan" },
-          { angka: berlangsung, label: "event berlangsung" },
-        ].map((s) => (
-          <div key={s.label} className="flex flex-col">
-            <span className="tnum font-mono text-2xl font-bold text-teal-800">
-              {s.angka}
-            </span>
-            <span className="text-[12px] text-teal-950/55">{s.label}</span>
+      <section className="border-y border-white/10 bg-ink-700">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-5 py-10 sm:px-8 lg:grid-cols-4">
+          <Statistik
+            angka={totalAtlet.toLocaleString("id-ID")}
+            label="Atlet terdata"
+          />
+          <Statistik angka={totalPerguruan} label="Perguruan & padepokan" />
+          <Statistik angka={18} label="Kecamatan terpetakan" />
+          <Statistik angka={berlangsung} label="Event berlangsung" />
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-14 sm:px-8">
+        <div className="flex items-end justify-between gap-4 border-b border-white/10 pb-3">
+          <div className="flex flex-col gap-2">
+            <span className="label">Pilih sudut pandang</span>
+            <h2 className="judul text-[26px]">Empat peran, satu data</h2>
           </div>
-        ))}
-      </div>
+        </div>
 
-      <p className="mt-4 text-[12px] text-teal-950/50">
-        Seluruh angka di prototipe ini adalah data contoh, bukan data atlet sungguhan.
-      </p>
-
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
-        {PERAN.map((p) => (
-          <Link
-            key={p.href}
-            href={p.href}
-            className="group flex flex-col gap-2 rounded-2xl border border-gading-300 bg-white p-5 transition-colors hover:border-teal-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
-          >
-            <div className="flex items-baseline justify-between gap-2">
-              <h2 className="text-[17px] font-bold text-teal-950">{p.nama}</h2>
-              <span
-                aria-hidden
-                className="text-teal-700 transition-transform group-hover:translate-x-0.5"
-              >
-                →
+        <div className="mt-px grid grid-cols-1 gap-px bg-white/10 sm:grid-cols-2">
+          {PERAN.map((p, i) => (
+            <Link
+              key={p.href}
+              href={p.href}
+              className="group flex flex-col gap-3 bg-ink-800 p-7 transition-colors hover:bg-ink-700 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-aksen"
+            >
+              <span className="font-mono text-[11px] tracking-[0.2em] text-aksen">
+                {String(i + 1).padStart(2, "0")}
               </span>
-            </div>
-            <p className="font-mono text-[11px] text-teal-700">{p.persona}</p>
-            <p className="text-[13px] leading-relaxed text-teal-950/65">{p.janji}</p>
-          </Link>
-        ))}
-      </div>
+              <div className="flex items-baseline justify-between gap-3">
+                <h3 className="judul text-[24px]">{p.nama}</h3>
+                <span
+                  aria-hidden
+                  className="text-aksen transition-transform group-hover:translate-x-1"
+                >
+                  →
+                </span>
+              </div>
+              <p className="font-mono text-[11px] tracking-[0.06em] text-muted">
+                {p.persona}
+              </p>
+              <p className="max-w-[42ch] text-[14px] leading-relaxed text-paper-dim">
+                {p.janji}
+              </p>
+            </Link>
+          ))}
+        </div>
 
-      <footer className="mt-10 flex flex-col gap-1 border-t border-gading-300 pt-5">
-        <span className="font-mono text-[10px] tracking-[0.16em] text-teal-950/40 uppercase">
-          Powered by
-        </span>
-        <span className="text-[13px] font-semibold text-teal-950/70">
-          Arah Karya Sinergi &times; NOZ Berkarya
-        </span>
+        <p className="mt-8 border-l-2 border-aksen/60 py-1 pl-4 text-[13px] leading-relaxed text-muted">
+          Seluruh angka di prototipe ini adalah data contoh, bukan data atlet
+          sungguhan.
+        </p>
+      </section>
+
+      <footer className="border-t border-white/10 bg-ink-900">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-10 sm:px-8">
+          <span className="label label-redup">Powered by</span>
+          <span className="judul text-[clamp(26px,5vw,44px)] text-paper">
+            Arah Karya Sinergi &times; NOZ Berkarya
+          </span>
+        </div>
       </footer>
     </main>
   );

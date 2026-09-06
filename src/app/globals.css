@@ -1,45 +1,87 @@
 @import "tailwindcss";
 
 /*
-  Sistem visual INORGA — diturunkan dari deck presentasi:
-  teal tua sebagai warna kelembagaan, cyan sebagai aksen, latar gading.
-*/
+ * Sistem visual INORGA — mengadopsi bahasa desain Apex Lab:
+ * dasar gelap editorial, judul Archivo tebal huruf besar, label mono berspasi
+ * lebar, dan satu warna aksen tunggal.
+ *
+ * Satu penyimpangan dari Apex yang disengaja: aksennya cyan INORGA, bukan
+ * oranye Apex, agar tetap satu identitas dengan deck yang sudah dilihat
+ * KORMI dan Pemkot. Ganti --color-aksen di bawah untuk membalikkannya.
+ */
 @theme {
-  --color-teal-950: #062b2d;
-  --color-teal-900: #0b3b3d;
-  --color-teal-800: #0e4547;
-  --color-teal-700: #12595c;
-  --color-teal-600: #17706f;
-  --color-teal-500: #1d8a86;
-  --color-cyan-400: #22c3d6;
-  --color-cyan-300: #55d6e4;
-  --color-cyan-200: #9ce7ef;
-  --color-gading-50: #f6f5f1;
-  --color-gading-100: #f0efea;
-  --color-gading-200: #e4e2da;
-  --color-gading-300: #d1cfc4;
-  --color-emas: #b8860b;
-  --color-perak: #8a8d91;
-  --color-perunggu: #a9713f;
+  --color-ink-900: #101010;
+  --color-ink-800: #171717;
+  --color-ink-700: #1f1f1f;
+  --color-ink-600: #2a2a2a;
+  --color-ink-500: #3a3a3a;
 
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), ui-monospace, monospace;
+  --color-paper: #f2f2f2;
+  --color-paper-dim: #cfcfcf;
+  --color-muted: #8a8a8a;
+
+  --color-aksen: #22c3d6;
+  --color-aksen-terang: #6fe0ec;
+  --color-aksen-gelap: #12707d;
+
+  --color-emas: #d9a441;
+  --color-perak: #b9bec4;
+  --color-perunggu: #c98a52;
+
+  --font-display: var(--font-archivo), "Archivo", system-ui, sans-serif;
+  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-mono-jb), "JetBrains Mono", ui-monospace, monospace;
 }
 
 html {
-  background: var(--color-gading-100);
+  background: var(--color-ink-800);
   -webkit-tap-highlight-color: transparent;
 }
 
 body {
-  color: var(--color-teal-950);
-  font-family: var(--font-sans);
+  color: var(--color-paper);
+  font-family: var(--font-body);
   overscroll-behavior-y: none;
 }
 
-/* Angka yang berbaris rapi di tabel dan antrian. */
+/* Judul display Apex: berat, huruf besar, rapat. */
+.judul {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.94;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+.judul-berat {
+  font-weight: 900;
+}
+
+/* Label mono berspasi lebar — penanda bagian khas Apex. */
+.label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--color-aksen);
+}
+.label-redup {
+  color: var(--color-muted);
+}
+
+/* Garis pemisah tipis di atas dasar gelap. */
+.garis {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
 .tnum {
   font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: var(--color-aksen);
+  color: var(--color-ink-900);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -51,10 +93,10 @@ body {
   }
 }
 
-@keyframes pulse-panggil {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 195, 214, 0.5); }
-  50% { box-shadow: 0 0 0 10px rgba(34, 195, 214, 0); }
+@keyframes denyut-panggil {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 195, 214, 0.45); }
+  50% { box-shadow: 0 0 0 12px rgba(34, 195, 214, 0); }
 }
 .animate-panggil {
-  animation: pulse-panggil 1.8s ease-in-out infinite;
+  animation: denyut-panggil 1.8s ease-in-out infinite;
 }

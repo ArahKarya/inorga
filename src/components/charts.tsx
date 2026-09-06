@@ -5,17 +5,23 @@ import { AMBANG_LABEL_PETA, KECAMATAN, totalAtlet } from "@/data/wilayah";
 import { ASPEK_INTI, TREN_INTI } from "@/data/penilaian";
 
 /**
- * Palet seri kategoris — lolos seluruh pemeriksaan validator warna
- * (band lightness, chroma floor, separasi CVD ΔE 15.5 deutan, kontras).
+ * Palet seri kategoris — divalidasi ulang terhadap LATAR GELAP setelah
+ * peralihan ke sistem visual Apex, bukan sekadar dibalik dari versi terang.
+ * Lolos seluruh pemeriksaan: band lightness, chroma floor, separasi CVD
+ * ΔE 15,5 (deuteranopia), dan kontras ≥ 3:1 terhadap permukaan gelap.
+ * Ungu diangkat dari #5b4fc7 ke #7b6ee0 karena versi lama hanya 2,81:1.
  */
 const WARNA_ASPEK: Record<string, string> = {
   "kebenaran-gerak": "#00a09a",
   kemantapan: "#c2660a",
-  penghayatan: "#5b4fc7",
+  penghayatan: "#7b6ee0",
 };
 
-/** Ramp sekuensial satu hue, terang → gelap, untuk magnitudo sebaran atlet. */
-const RAMP = ["#d7edec", "#a3d6d3", "#5fb5b1", "#2a8d8a", "#0e5f5e"];
+/**
+ * Ramp sekuensial satu hue untuk magnitudo sebaran atlet. Di latar gelap
+ * arahnya dibalik: makin banyak atlet, makin terang — redup berarti sedikit.
+ */
+const RAMP = ["#24494b", "#2b6462", "#348b87", "#3db3ac", "#57d8d0"];
 
 const langkahRamp = (nilai: number, maks: number): string => {
   const i = Math.min(RAMP.length - 1, Math.floor((nilai / maks) * RAMP.length));
@@ -83,14 +89,14 @@ export function GrafikTrenInti() {
                 x2={M.kiri + PLOT_W}
                 y1={py(t)}
                 y2={py(t)}
-                stroke="#e4e2da"
+                stroke="rgba(255,255,255,0.09)"
                 strokeWidth="1"
               />
               <text
                 x={M.kiri - 10}
                 y={py(t) + 4}
                 textAnchor="end"
-                className="fill-teal-950/45 font-mono text-[11px]"
+                className="fill-paper/40 font-mono text-[11px]"
               >
                 {t},0
               </text>
@@ -104,7 +110,7 @@ export function GrafikTrenInti() {
               y={H - 14}
               textAnchor="middle"
               className={`font-mono text-[10px] ${
-                i === titik ? "fill-teal-950 font-medium" : "fill-teal-950/45"
+                i === titik ? "fill-paper font-medium" : "fill-paper/40"
               }`}
             >
               {d.tanggal}
@@ -116,10 +122,10 @@ export function GrafikTrenInti() {
             x2={px(titik)}
             y1={M.atas}
             y2={M.atas + PLOT_H}
-            stroke="#0e4547"
+            stroke="#f2f2f2"
             strokeWidth="1"
             strokeDasharray="3 3"
-            opacity="0.35"
+            opacity="0.28"
           />
 
           {ASPEK_INTI.map((aspek) => {
@@ -140,7 +146,7 @@ export function GrafikTrenInti() {
                     cy={py(t.nilai[aspek.id])}
                     r={i === titik ? 5.5 : 4}
                     fill={warna}
-                    stroke="#ffffff"
+                    stroke="#1f1f1f"
                     strokeWidth="2"
                   />
                 ))}
@@ -153,10 +159,10 @@ export function GrafikTrenInti() {
                   opacity="0.5"
                 />
                 <text x={px(AKHIR) + 15} y={yLabel} className="text-[11px]">
-                  <tspan className="fill-teal-950 font-semibold">
+                  <tspan className="fill-paper font-semibold">
                     {aspek.nama.split(" ")[0]}
                   </tspan>
-                  <tspan dx="6" className="fill-teal-950/55 font-mono text-[10px]">
+                  <tspan dx="6" className="fill-paper/55 font-mono text-[10px]">
                     {akhirNilai.toFixed(1).replace(".", ",")}
                   </tspan>
                 </text>
@@ -182,20 +188,20 @@ export function GrafikTrenInti() {
       <figcaption className="flex flex-col gap-2">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
           {ASPEK_INTI.map((a) => (
-            <span key={a.id} className="flex items-center gap-1.5 text-[12px] text-teal-950/70">
+            <span key={a.id} className="flex items-center gap-1.5 text-[12px] text-paper-dim">
               <span
                 aria-hidden
                 className="size-2.5 rounded-full"
                 style={{ background: WARNA_ASPEK[a.id] }}
               />
               {a.nama}
-              <span className="tnum font-mono text-[11px] text-teal-950/45">
+              <span className="tnum font-mono text-[11px] text-muted">
                 {TREN_INTI[titik].nilai[a.id].toFixed(1)}
               </span>
             </span>
           ))}
         </div>
-        <p className="text-[12px] leading-relaxed text-teal-950/55">
+        <p className="text-[12px] leading-relaxed text-muted">
           Nilai aspek inti pada skala 1–10, dari lima event terakhir. Hanya aspek inti
           yang dibandingkan lintas-event; aspek tambahan milik masing-masing
           penyelenggara tampil di halaman hasil event.
@@ -248,11 +254,11 @@ export function PetaSebaran() {
           <path
             d="M2 66 C 20 62, 30 58, 44 60 C 58 62, 70 54, 82 48 C 90 44, 96 42, 99 41"
             fill="none"
-            stroke="#c9dce4"
+            stroke="#24424c"
             strokeWidth="5"
             strokeLinecap="round"
           />
-          <text x="4" y="72" className="fill-teal-950/35 text-[2.6px] font-medium tracking-wide">
+          <text x="4" y="72" className="fill-paper/30 text-[2.6px] font-medium tracking-wide">
             SUNGAI MUSI
           </text>
 
@@ -273,7 +279,7 @@ export function PetaSebaran() {
                   cy={k.y}
                   r={r}
                   fill={langkahRamp(k.jumlahAtlet, maksAtlet)}
-                  stroke={disorot ? "#0e4547" : "#ffffff"}
+                  stroke={disorot ? "#f2f2f2" : "#1f1f1f"}
                   strokeWidth={disorot ? 0.9 : 0.6}
                 />
                 {k.jumlahAtlet >= AMBANG_LABEL_PETA || disorot ? (
@@ -281,11 +287,11 @@ export function PetaSebaran() {
                   x={label.x}
                   y={label.y}
                   textAnchor={label.anchor}
-                  stroke="#f6f5f1"
-                  strokeWidth="0.85"
+                  stroke="#1f1f1f"
+                  strokeWidth="0.7"
                   paintOrder="stroke"
                   className={`text-[2.5px] ${
-                    disorot ? "fill-teal-950 font-semibold" : "fill-teal-950/60"
+                    disorot ? "fill-paper font-semibold" : "fill-paper/60"
                   }`}
                 >
                   {k.nama}
@@ -297,12 +303,12 @@ export function PetaSebaran() {
         </svg>
 
         {terpilih ? (
-          <div className="pointer-events-none absolute top-2 right-2 rounded-xl border border-gading-300 bg-white/95 px-3 py-2 shadow-sm backdrop-blur">
-            <p className="text-[13px] font-bold text-teal-950">{terpilih.nama}</p>
-            <p className="tnum font-mono text-[11px] text-teal-950/60">
+          <div className="pointer-events-none absolute top-2 right-2 border border-white/15 bg-ink-900/95 px-3 py-2 backdrop-blur">
+            <p className="judul text-[14px] text-paper">{terpilih.nama}</p>
+            <p className="tnum font-mono text-[11px] text-aksen">
               {terpilih.jumlahAtlet} atlet · {terpilih.jumlahPerguruan} perguruan
             </p>
-            <p className="font-mono text-[10px] tracking-wide text-teal-950/40 uppercase">
+            <p className="font-mono text-[10px] tracking-wide text-muted uppercase">
               Zona {terpilih.zona}
             </p>
           </div>
@@ -311,19 +317,19 @@ export function PetaSebaran() {
 
       <figcaption className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-2">
-          <span className="font-mono text-[10px] tracking-wider text-teal-950/45 uppercase">
+          <span className="label label-redup">
             Jumlah atlet
           </span>
           <span className="flex items-center gap-1">
             {RAMP.map((c) => (
-              <span key={c} aria-hidden className="size-3.5 rounded-sm" style={{ background: c }} />
+              <span key={c} aria-hidden className="size-3.5" style={{ background: c }} />
             ))}
           </span>
-          <span className="tnum font-mono text-[10px] text-teal-950/45">
+          <span className="tnum font-mono text-[10px] text-muted">
             0 – {maksAtlet}
           </span>
         </div>
-        <span className="tnum font-mono text-[11px] text-teal-950/50">
+        <span className="tnum font-mono text-[11px] text-muted">
           {totalAtlet} atlet · 18 kecamatan
         </span>
       </figcaption>
