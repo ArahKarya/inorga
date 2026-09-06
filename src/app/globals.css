@@ -249,3 +249,16 @@ body {
   .reveal { opacity: 1; }
   .baris-topeng > span { transform: none; }
 }
+
+/* Footage — gerak Ken Burns lambat agar gambar diam terasa seperti cuplikan. */
+@keyframes kenBurns {
+  from { transform: scale(1) translate(0, 0); }
+  to { transform: scale(1.09) translate(-1.5%, 1%); }
+}
+.footage-gerak {
+  transform-origin: 60% 40%;
+  animation: kenBurns 38s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .footage-gerak { animation: none !important; }
+}

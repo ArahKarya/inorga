@@ -170,6 +170,16 @@ pnpm dev          # http://localhost:3000
 - [ ] Sinkronisasi luring sungguhan
 - [ ] Hosting produksi di wilayah Indonesia (wajib — status PSE Lingkup Publik, PP 71/2019 Pasal 20)
 
+## 🎞️ Footage
+
+Gambar di `public/footage/` dipotong dari deck INORGA sendiri (hak milik
+klien) — ilustrasi pesilat, matras isometrik, dan tiga thumbnail jurus.
+Komponen `Footage` (`src/components/Footage.tsx`) memperlakukannya seperti
+cuplikan film: desaturasi, scrim gradien ala Apex, butiran halus, gerak
+Ken Burns lambat (mati bila pengguna meminta gerak dikurangi). Ganti berkas
+di folder itu dengan foto sungguhan bila sudah ada — nama berkas dipakai
+langsung di hero, `/klasemen`, dan `/arena/[id]`.
+
 ## 🧱 Stack
 
 Next.js 16 · React 19 · Tailwind 4 · TypeScript · qrcode.react

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Statistik } from "@/components/ui";
 import { Reveal, RevealBaris } from "@/components/motion";
+import { Footage } from "@/components/Footage";
 import { totalAtlet, totalPerguruan } from "@/data/wilayah";
 import { EVENTS } from "@/data/event";
 
@@ -41,8 +42,15 @@ export default function Beranda() {
   return (
     <main>
       {/* Hero — susunan dua kolom Apex: judul besar di kiri, ringkasan di kanan bawah. */}
-      <section className="bagian-gelap flex min-h-[78vh] items-end pt-16 pb-14">
-        <div className="inner grid grid-cols-1 items-end gap-7 lg:grid-cols-[1.4fr_1fr]">
+      <section className="bagian-gelap relative flex min-h-[78vh] items-end pt-16 pb-14">
+        <Footage
+          src="/footage/atlet-ilustrasi.png"
+          posisi="72% 30%"
+          scrim="bawah"
+          kabur={1.5}
+          redup={0.5}
+        />
+        <div className="inner relative grid grid-cols-1 items-end gap-7 lg:grid-cols-[1.4fr_1fr]">
           <div className="min-w-0">
             <Reveal>
               <span className="label">Prototipe Demo</span>

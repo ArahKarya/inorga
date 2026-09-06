@@ -8,6 +8,7 @@ import { singkatanPerguruan } from "@/data/perguruan";
 import { rubrikEvent, nilaiPeserta } from "@/data/penilaian";
 import { hitungSkor, susunPeringkat } from "@/lib/hasil";
 import { gabungNilai, useAntrianLive, useNilaiLive } from "@/lib/live";
+import { Footage } from "@/components/Footage";
 
 /**
  * Papan skor arena untuk layar besar. Tanpa bilah, tanpa reveal, tanpa gulir
@@ -104,8 +105,15 @@ export default function LayarArena({
       </header>
 
       <div className="grid flex-1 grid-cols-1 gap-px bg-white/10 lg:grid-cols-[1.5fr_1fr]">
-        <section className="flex flex-col justify-between gap-10 bg-ink-900 p-10">
-          <div>
+        <section className="relative flex flex-col justify-between gap-10 bg-ink-900 p-10">
+          <Footage
+            src="/footage/arena-matras.png"
+            posisi="right 35%"
+            scrim="kiri"
+            kabur={1.5}
+            redup={0.5}
+          />
+          <div className="relative">
             <span className="label">Sedang tampil</span>
             {tampil && atletTampil ? (
               <>
@@ -126,7 +134,7 @@ export default function LayarArena({
               </p>
             )}
           </div>
-          <div className="border-t border-aksen/40 pt-8">
+          <div className="relative border-t border-aksen/40 pt-8">
             <span className="label">Bersiap — dipanggil</span>
             {dipanggil && atletDipanggil ? (
               <div className="mt-4 flex items-baseline gap-6">
