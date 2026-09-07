@@ -65,6 +65,66 @@ Navigasi peran pindah ke bawah, tabel berubah jadi kartu, tidak ada geser sampin
 | Anak di bawah umur ikut event tanpa jalur consent      | Model atlet menyertakan wali — sesuai kewajiban UU PDP                                 |
 | Koneksi GOR tidak bisa diandalkan                      | Mode luring di panel panitia — simulasi putus-sambung sudah dirancang dari awal        |
 
+## 🧩 Daftar Fitur
+
+Tiga belas rute, lima peran. Semua berjalan di atas data contoh, tanpa backend.
+
+### Atlet — `/atlet`, `/atlet/[id]`
+- Kartu anggota digital dengan QR untuk check-in, menggantikan kartu fisik
+- Pemberitahuan giliran arena: nomor urut, matras, perkiraan jam tampil
+- Pendaftaran event **satu klik** — profil, atribut fisik, dan afiliasi perguruan terisi otomatis
+- Rapor tren nilai **aspek inti** lintas-event, bertambah begitu juri mengunci nilai
+- Jenjang usia: kelompok berikutnya, tahun naik, dan laju perbaikan per event
+- Posisi di kategori dibanding rata-rata dan nilai tertinggi
+- Portofolio prestasi permanen — hasil bersistem dan arsip pra-sistem, menaut ke halaman verifikasi
+- Status verifikasi Dukcapil dan wali; **NIK tidak pernah disimpan**
+
+### Perguruan — `/perguruan`
+- Daftar binaan dengan kelengkapan data dan penanda "wali belum terverifikasi"
+- Pendaftaran kolektif ke event, termasuk jalur untuk anggota tanpa ponsel
+- Rekap medali bersistem dan peraihnya
+- Komposisi binaan: kelompok umur dan sebaran kecamatan asal
+- Binaan yang sedang terdaftar di event aktif, beserta status check-in
+- Direktori perguruan lain se-Palembang
+
+### Panitia — `/panitia`
+- Antrian per matras dengan tombol **panggil peserta berikutnya**
+- **Mode luring sungguhan** — service worker menahan halaman saat sinyal GOR hilang
+- Sekilas semua matras: siapa tampil, siapa dipanggil, berapa yang menunggu
+- Rundown hari berjalan lintas matras
+- Pemindai QR memakai kamera perangkat, dengan tombol simulasi sebagai cadangan
+- Rekap check-in per kategori dan daftar pendaftaran yang dibantu
+
+### Juri — `/juri`
+- Penilaian per aspek dengan **inti dan ekstensi dipisah tegas**
+- Rerata terpangkas dari tiga juri: nilai tertinggi dan terendah dibuang
+- Nilai **terkunci** setelah dikirim — tidak bisa diubah dari layar mana pun
+- Rekap dewan juri per aspek dan riwayat penilaian juri yang sedang bertugas
+- Identitas dan masa berlaku lisensi juri
+- Pintasan demo: mengunci sebagai ketiga juri sekaligus
+
+### Pemkot & KORMI — `/pemkot`
+- Peta sebaran atlet 18 kecamatan Kota Palembang
+- **Peta kesenjangan** — kecamatan yang atletnya ada tetapi perguruannya tidak
+- **Radar bakat** diurutkan menurut laju perbaikan, bukan nilai absolut
+- Kohort jenjang usia dan medali per perguruan
+- Statistik penyelenggaraan; halaman ini tidak pernah menampilkan NIK atau alamat rinci
+
+### Kompetisi
+- **Papan skor arena** `/arena/[id]` — mode layar besar untuk proyektor, tersinkron antar-perangkat
+- **Klasemen medali** `/klasemen` — per perguruan dan per kecamatan, peringkat kompetisi
+- **Hasil event** `/event/[id]/hasil` — kolom Inti | Ekstensi | Total terpisah
+- **Detail event** `/event/[id]` — rubrik, rundown per matras, peserta per kategori
+- **Undian** `/undian` — urutan tampil dengan benih tercatat yang bisa dijalankan ulang siapa pun
+- **Verifikasi sertifikat** `/sertifikat/[nomor]` — terbuka tanpa perlu masuk, bersidik
+
+### Lintas peran
+- Pengalih peran di bilah atas; navigasi bawah di layar sempit
+- State demo bertahan di `localStorage` dan tersinkron antar-tab lewat event `storage`
+- Tombol **Reset demo** mengembalikan antrian, nilai juri, dan undian ke keadaan awal
+- Dapat dipasang sebagai PWA, atau sebagai APK Android lewat Capacitor
+- Getar dan notifikasi lokal saat nomor atlet dipanggil
+
 ## 🏛️ Arsitektur
 
 ```
