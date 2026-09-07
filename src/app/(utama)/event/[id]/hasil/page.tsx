@@ -92,7 +92,7 @@ export default function HalamanHasil({
               </span>
             }
           />
-          <Kartu className="overflow-x-auto">
+          <Kartu className="hidden overflow-x-auto sm:block">
             <table className="w-full min-w-[760px] text-left">
               <thead>
                 <tr className="border-b border-white/10">
@@ -216,6 +216,58 @@ export default function HalamanHasil({
               </tbody>
             </table>
           </Kartu>
+
+          {/* Layar sempit: satu kartu per peserta, inti dan ekstensi tetap terpisah. */}
+          <div className="flex flex-col gap-px bg-white/10 sm:hidden">
+            {peringkat.map((s, i) => {
+              const a = atletById(s.atletId)!;
+              const medali = tentukanMedali(i + 1);
+              return (
+                <div
+                  key={s.atletId}
+                  className="flex flex-col gap-2 bg-ink-700 p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="tnum w-5 font-mono text-[13px] text-aksen">
+                      {i + 1}
+                    </span>
+                    <Link
+                      href={`/atlet/${a.id}`}
+                      className="min-w-0 flex-1 truncate text-[14px] font-semibold text-paper"
+                    >
+                      {a.nama}
+                    </Link>
+                    {medali ? (
+                      <span
+                        className={`font-mono text-[10px] tracking-[0.1em] uppercase ${WARNA[medali]}`}
+                      >
+                        {medali}
+                      </span>
+                    ) : null}
+                  </div>
+                  <div className="flex gap-px bg-white/10">
+                    {[
+                      ["Inti", s.inti],
+                      ["Ekstensi", s.ekstensi],
+                      ["Total", s.total],
+                    ].map(([l, v]) => (
+                      <div
+                        key={String(l)}
+                        className="flex flex-1 flex-col gap-0.5 bg-ink-600 px-3 py-2"
+                      >
+                        <span className="font-mono text-[9px] tracking-[0.12em] text-muted uppercase">
+                          {l}
+                        </span>
+                        <span className="tnum font-display text-[16px] font-bold text-paper">
+                          {f1(Number(v))}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </section>
       ))}
 

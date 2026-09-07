@@ -170,6 +170,41 @@ pnpm dev          # http://localhost:3000
 - [ ] Sinkronisasi luring sungguhan
 - [ ] Hosting produksi di wilayah Indonesia (wajib — status PSE Lingkup Publik, PP 71/2019 Pasal 20)
 
+## 📱 Aplikasi mobile
+
+Dua bentuk dari satu basis kode:
+
+**PWA** — buka di peramban ponsel lalu "Tambahkan ke layar utama". Dapat ikon
+sendiri, layar penuh tanpa bilah peramban, dan service worker (`public/sw.js`)
+sehingga **mode luring panitia jadi nyata**, bukan simulasi: halaman yang pernah
+dibuka tetap terbuka saat sinyal GOR hilang, dan state antrian hidup di
+localStorage.
+
+**APK Android** — cangkang Capacitor membungkus ekspor statis, jadi aplikasi
+berjalan penuh tanpa server.
+
+```bash
+pnpm apk:build     # ekspor statis → sync → assembleDebug
+pnpm apk:pasang    # sekaligus pasang ke perangkat yang tersambung (adb)
+```
+
+Berkas: `android/app/build/outputs/apk/debug/app-debug.apk` (~7,5 MB).
+
+Prasyarat sekali pasang: JDK 21 (`brew install openjdk@21` — Capacitor 8 menolak
+JDK 17) dan Android SDK `platform-tools`, `platforms;android-35`,
+`build-tools;35.0.0`. Jalur JDK sudah ditetapkan di `android/gradle.properties`.
+
+`next.config.ts` punya dua sasaran: `standalone` (default, untuk Docker/RPi5) dan
+`export` bila `INORGA_TARGET=apk`. Karena ekspor statis melarang param dinamis,
+seluruh `dynamicParams` bernilai `false` — semua id berasal dari data contoh, jadi
+setiap halaman sah sudah dirender di muka; id tak dikenal jatuh ke halaman
+tidak-ditemukan.
+
+Fitur khas perangkat: pemindai QR memakai kamera lewat `BarcodeDetector`
+(`PindaiQR.tsx`, dengan tombol simulasi sebagai cadangan), getar + notifikasi
+lokal saat nomor atlet dipanggil (`Perangkat.tsx`), dan navigasi bawah di layar
+sempit (`NavBawah.tsx`).
+
 ## 🎞️ Footage
 
 Gambar di `public/footage/` dipotong dari deck INORGA sendiri (hak milik

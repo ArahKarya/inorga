@@ -136,7 +136,11 @@ export default function HalamanKlasemen() {
             <Statistik kecil angka={totalMedali} label="Medali tercatat" />
           </div>
           <div className="bg-ink-700 p-5">
-            <Statistik kecil angka={eventTercakup.length} label="Event tercakup" />
+            <Statistik
+              kecil
+              angka={eventTercakup.length}
+              label="Event tercakup"
+            />
           </div>
         </div>
 
@@ -167,7 +171,7 @@ export default function HalamanKlasemen() {
 
         <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
           <div className="flex flex-col gap-6">
-            <Kartu className="overflow-x-auto">
+            <Kartu className="hidden overflow-x-auto sm:block">
               <table className="w-full min-w-[560px] text-left">
                 <thead>
                   <tr className="border-b border-white/10">
@@ -224,6 +228,39 @@ export default function HalamanKlasemen() {
                 </tbody>
               </table>
             </Kartu>
+
+            {/* Versi kartu untuk layar sempit — tabel enam kolom tidak terbaca di ponsel. */}
+            <div className="flex flex-col gap-px bg-white/10 sm:hidden">
+              {baris.map((b) => (
+                <div
+                  key={b.kunci}
+                  className="flex items-center gap-3 bg-ink-700 p-4"
+                >
+                  <span className="tnum w-6 font-mono text-[14px] text-aksen">
+                    {b.peringkat}
+                  </span>
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <span className="truncate text-[14px] font-semibold text-paper">
+                      {b.nama}
+                    </span>
+                    <span className="tnum font-mono text-[11px] text-muted">
+                      {b.total} medali
+                    </span>
+                  </div>
+                  <div className="flex shrink-0 gap-2">
+                    <span className="tnum font-mono text-[13px] font-bold text-emas">
+                      {b.emas}
+                    </span>
+                    <span className="tnum font-mono text-[13px] font-bold text-perak">
+                      {b.perak}
+                    </span>
+                    <span className="tnum font-mono text-[13px] font-bold text-perunggu">
+                      {b.perunggu}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
 
             <CatatanDemo>
               Peringkat memakai aturan kompetisi: dua kontingen dengan perolehan

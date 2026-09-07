@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">INORGA</string>
+    <string name="title_activity_main">INORGA</string>
+    <string name="package_name">id.arahkarya.inorga</string>
+    <string name="custom_url_scheme">id.arahkarya.inorga</string>
+</resources>

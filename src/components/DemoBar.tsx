@@ -34,7 +34,7 @@ export function DemoBar() {
      */
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink-900/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-[18px] py-[18px] sm:px-8">
+        <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-[18px] py-3 sm:px-8 sm:py-[18px]">
           <Link
             href="/"
             className="brand flex shrink-0 items-center gap-2.5 text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aksen"
@@ -47,7 +47,7 @@ export function DemoBar() {
 
           <nav
             aria-label="Pilih peran"
-            className="flex min-w-0 flex-1 items-center gap-5 overflow-x-auto [scrollbar-width:none] sm:gap-7 [&::-webkit-scrollbar]:hidden"
+            className="hidden min-w-0 flex-1 items-center gap-5 overflow-x-auto [scrollbar-width:none] sm:gap-7 md:flex [&::-webkit-scrollbar]:hidden"
           >
             {PERAN.map((p) => {
               const aktif = pathname.startsWith(p.href);

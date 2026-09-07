@@ -5,7 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "build:apk": "INORGA_TARGET=apk next build",
+    "apk:sync": "pnpm build:apk && npx cap sync android",
+    "apk:build": "pnpm apk:sync && cd android && ./gradlew assembleDebug",
+    "apk:pasang": "pnpm apk:build && $HOME/Library/Android/sdk/platform-tools/adb install -r android/app/build/outputs/apk/debug/app-debug.apk"
   },
   "dependencies": {
     "lenis": "^1.3.26",
@@ -15,6 +19,9 @@
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/cli": "^8.5.1",
+    "@capacitor/core": "^8.5.1",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.4.1",
     "@types/react": "^19.2.18",

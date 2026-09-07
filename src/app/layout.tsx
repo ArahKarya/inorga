@@ -31,12 +31,20 @@ export const metadata: Metadata = {
   title: "INORGA — Ekosistem Digital Silat",
   description:
     "Platform pemanduan bakat pencak silat tradisi Kota Palembang. Prototipe demo.",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "INORGA",
+  },
+  icons: { icon: "/ikon-192.png", apple: "/ikon-192.png" },
 };
 
 export const viewport: Viewport = {
   themeColor: "#171717",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 5,
   viewportFit: "cover",
 };
 

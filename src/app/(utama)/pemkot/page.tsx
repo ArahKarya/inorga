@@ -297,7 +297,7 @@ export default function HalamanPemkot() {
 
         <section className="flex flex-col gap-4">
           <JudulBagian eyebrow="Penyelenggaraan" judul="Event tahun berjalan" />
-          <Kartu className="overflow-x-auto">
+          <Kartu className="hidden overflow-x-auto sm:block">
             <table className="w-full min-w-[640px] text-left">
               <thead>
                 <tr className="border-b border-white/10">
@@ -360,6 +360,32 @@ export default function HalamanPemkot() {
               </tbody>
             </table>
           </Kartu>
+
+          <div className="flex flex-col gap-px bg-white/10 sm:hidden">
+            {EVENTS.map((e) => (
+              <Link
+                key={e.id}
+                href={`/event/${e.id}`}
+                className="flex flex-col gap-1.5 bg-ink-700 p-4"
+              >
+                <span className="text-[14px] font-semibold text-paper">
+                  {e.nama}
+                </span>
+                <span className="font-mono text-[11px] text-muted">
+                  {e.penyelenggara} · {e.jumlahPeserta} peserta
+                </span>
+                <span
+                  className={`w-fit border px-2 py-0.5 font-mono text-[10px] tracking-[0.1em] uppercase ${e.status === "berlangsung" ? "border-aksen/50 text-aksen" : e.status === "dibuka" ? "border-emerald-400/40 text-emerald-300" : "border-white/20 text-muted"}`}
+                >
+                  {e.status === "berlangsung"
+                    ? "Berlangsung"
+                    : e.status === "dibuka"
+                      ? "Pendaftaran dibuka"
+                      : "Selesai"}
+                </span>
+              </Link>
+            ))}
+          </div>
         </section>
       </div>
     </main>

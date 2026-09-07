@@ -1,5 +1,7 @@
 import { DemoBar } from "@/components/DemoBar";
 import { SmoothScroll } from "@/components/motion";
+import { NavBawah } from "@/components/NavBawah";
+import { Perangkat } from "@/components/Perangkat";
 
 /** Kerangka untuk semua layar biasa: bilah peran, gulir halus, ruang di bawah bilah. */
 export default function LayoutUtama({
@@ -10,8 +12,10 @@ export default function LayoutUtama({
   return (
     <>
       <SmoothScroll />
+      <Perangkat />
       <DemoBar />
-      <div className="pt-[71px]">{children}</div>
+      <div className="pt-[62px] pb-[70px] sm:pt-[71px] md:pb-0">{children}</div>
+      <NavBawah />
     </>
   );
 }

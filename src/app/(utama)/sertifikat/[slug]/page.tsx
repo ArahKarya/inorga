@@ -7,7 +7,12 @@ import { eventById, labelKategori } from "@/data/event";
 import { HASIL, RIWAYAT_PRESTASI } from "@/data/penilaian";
 import { hashSertifikat, nomorKeSlug, slugKeNomor } from "@/lib/sertifikat";
 
-export const dynamicParams = true;
+/**
+ * Semua id berasal dari data contoh statis, jadi seluruh halaman valid sudah
+ * dirender di muka. Nilai false wajib agar ekspor statis untuk APK bisa jalan;
+ * id yang tidak dikenal jatuh ke halaman tidak-ditemukan.
+ */
+export const dynamicParams = false;
 export function generateStaticParams() {
   return [
     ...HASIL.map((h) => h.nomorSertifikat),
