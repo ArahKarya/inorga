@@ -81,14 +81,19 @@ export function Statistik({
   angka,
   label,
   ket,
+  kecil = false,
 }: {
   angka: ReactNode;
   label: string;
   ket?: string;
+  /** Untuk grid rapat: angka display 900 diperkecil agar tidak meluber ke sel sebelah. */
+  kecil?: boolean;
 }) {
   return (
-    <div className="flex flex-col">
-      <span className="stat-num tnum">{angka}</span>
+    <div className="flex min-w-0 flex-col">
+      <span className={`stat-num tnum ${kecil ? "stat-num-kecil" : ""}`}>
+        {angka}
+      </span>
       <span className="stat-label">{label}</span>
       {ket ? <span className="text-[12px] text-muted">{ket}</span> : null}
     </div>

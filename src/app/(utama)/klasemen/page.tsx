@@ -4,10 +4,10 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Kartu, JudulBagian, CatatanDemo, Statistik } from "@/components/ui";
 import { Footage, UbinCuplikan } from "@/components/Footage";
-import { atletById } from "@/data/atlet";
+import { atletById, kelompokUmur } from "@/data/atlet";
 import { namaPerguruan, singkatanPerguruan } from "@/data/perguruan";
 import { namaKecamatan } from "@/data/wilayah";
-import { EVENTS } from "@/data/event";
+import { EVENTS, kategoriById } from "@/data/event";
 import { HASIL, rubrikEvent, nilaiPeserta } from "@/data/penilaian";
 import { hitungKlasemen } from "@/lib/klasemen";
 import { hitungSkor, susunPeringkat, tentukanMedali } from "@/lib/hasil";
@@ -75,6 +75,24 @@ export default function HalamanKlasemen() {
   );
 
   const totalMedali = semua.filter((h) => h.medali).length;
+  const peraih = [
+    ...new Set(semua.filter((h) => h.medali).map((h) => h.atletId)),
+  ]
+    .map((id) => ({
+      a: atletById(id)!,
+      emas: semua.filter((h) => h.atletId === id && h.medali === "emas").length,
+      total: semua.filter((h) => h.atletId === id && h.medali).length,
+    }))
+    .sort((x, y) => y.emas - x.emas || y.total - x.total)
+    .slice(0, 8);
+  const perKategori = [
+    ...new Set(semua.filter((h) => h.medali).map((h) => h.kategoriId)),
+  ]
+    .map((kId) => ({
+      kId,
+      n: semua.filter((h) => h.kategoriId === kId && h.medali).length,
+    }))
+    .sort((x, y) => y.n - x.n);
   const eventTercakup = [...new Set(semua.map((h) => h.eventId))].map(
     (id) => EVENTS.find((e) => e.id === id)?.nama ?? id,
   );
@@ -89,7 +107,7 @@ export default function HalamanKlasemen() {
           kabur={1}
           redup={0.6}
         />
-        <div className="relative mx-auto flex h-full min-h-[300px] max-w-5xl flex-col justify-end gap-2 px-4 py-10 sm:min-h-[380px] sm:px-6">
+        <div className="inner relative flex h-full min-h-[300px] flex-col justify-end gap-2 py-10 sm:min-h-[380px]">
           <span className="label">Klasemen medali</span>
           <h1 className="judul text-[clamp(32px,6vw,64px)] text-paper">
             Perolehan medali{" "}
@@ -101,10 +119,11 @@ export default function HalamanKlasemen() {
           </p>
         </div>
       </header>
-      <div className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 sm:px-6">
+      <div className="inner flex flex-col gap-8">
         <div className="grid grid-cols-3 gap-px border border-white/10 bg-white/10">
           <div className="bg-ink-700 p-5">
             <Statistik
+              kecil
               angka={baris.length}
               label={
                 kontingen === "perguruan"
@@ -114,10 +133,10 @@ export default function HalamanKlasemen() {
             />
           </div>
           <div className="bg-ink-700 p-5">
-            <Statistik angka={totalMedali} label="Medali tercatat" />
+            <Statistik kecil angka={totalMedali} label="Medali tercatat" />
           </div>
           <div className="bg-ink-700 p-5">
-            <Statistik angka={eventTercakup.length} label="Event tercakup" />
+            <Statistik kecil angka={eventTercakup.length} label="Event tercakup" />
           </div>
         </div>
 
@@ -146,77 +165,146 @@ export default function HalamanKlasemen() {
           </label>
         </div>
 
-        <Kartu className="overflow-x-auto">
-          <table className="w-full min-w-[560px] text-left">
-            <thead>
-              <tr className="border-b border-white/10">
-                {[
-                  "#",
-                  kontingen === "perguruan" ? "Perguruan" : "Kecamatan",
-                  "Emas",
-                  "Perak",
-                  "Perunggu",
-                  "Total",
-                ].map((h, i) => (
-                  <th
-                    key={h}
-                    className={`px-4 py-3 font-mono text-[10px] tracking-[0.16em] text-muted uppercase ${i >= 2 ? "text-right" : ""}`}
+        <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
+          <div className="flex flex-col gap-6">
+            <Kartu className="overflow-x-auto">
+              <table className="w-full min-w-[560px] text-left">
+                <thead>
+                  <tr className="border-b border-white/10">
+                    {[
+                      "#",
+                      kontingen === "perguruan" ? "Perguruan" : "Kecamatan",
+                      "Emas",
+                      "Perak",
+                      "Perunggu",
+                      "Total",
+                    ].map((h, i) => (
+                      <th
+                        key={h}
+                        className={`px-4 py-3 font-mono text-[10px] tracking-[0.16em] text-muted uppercase ${i >= 2 ? "text-right" : ""}`}
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {baris.map((b) => (
+                    <tr
+                      key={b.kunci}
+                      className="border-b border-white/10 last:border-0"
+                    >
+                      <td className="tnum px-4 py-3 font-mono text-[13px] text-aksen">
+                        {b.peringkat}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="text-[14px] font-semibold text-paper">
+                          {b.nama}
+                        </span>
+                        {kontingen === "perguruan" ? (
+                          <span className="ml-2 font-mono text-[10px] text-muted">
+                            {singkatanPerguruan(b.kunci)}
+                          </span>
+                        ) : null}
+                      </td>
+                      <td className="tnum px-4 py-3 text-right font-mono text-[14px] font-bold text-emas">
+                        {b.emas}
+                      </td>
+                      <td className="tnum px-4 py-3 text-right font-mono text-[14px] font-bold text-perak">
+                        {b.perak}
+                      </td>
+                      <td className="tnum px-4 py-3 text-right font-mono text-[14px] font-bold text-perunggu">
+                        {b.perunggu}
+                      </td>
+                      <td className="tnum px-4 py-3 text-right font-mono text-[14px] text-paper">
+                        {b.total}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Kartu>
+
+            <CatatanDemo>
+              Peringkat memakai aturan kompetisi: dua kontingen dengan perolehan
+              sama berbagi peringkat, dan yang berikutnya melompat. Hasil
+              sementara berubah begitu juri mengunci nilai — buka{" "}
+              <Link href="/juri" className="text-aksen underline">
+                panel juri
+              </Link>{" "}
+              lalu kembali ke sini.
+            </CatatanDemo>
+
+            <p className="font-mono text-[10px] tracking-[0.1em] text-muted uppercase">
+              Mencakup: {eventTercakup.join(" · ")}
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <section className="flex flex-col gap-4">
+              <JudulBagian eyebrow="Atlet" judul="Peraih medali terbanyak" />
+              <Kartu className="divide-y divide-white/10">
+                {peraih.map(({ a, emas, total }, i) => (
+                  <Link
+                    key={a.id}
+                    href={`/atlet/${a.id}`}
+                    className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-ink-600"
                   >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {baris.map((b) => (
-                <tr
-                  key={b.kunci}
-                  className="border-b border-white/10 last:border-0"
-                >
-                  <td className="tnum px-4 py-3 font-mono text-[13px] text-aksen">
-                    {b.peringkat}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="text-[14px] font-semibold text-paper">
-                      {b.nama}
+                    <span className="tnum w-5 font-mono text-[12px] text-aksen">
+                      {i + 1}
                     </span>
-                    {kontingen === "perguruan" ? (
-                      <span className="ml-2 font-mono text-[10px] text-muted">
-                        {singkatanPerguruan(b.kunci)}
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      <span className="truncate text-[13px] font-semibold text-paper">
+                        {a.nama}
                       </span>
-                    ) : null}
-                  </td>
-                  <td className="tnum px-4 py-3 text-right font-mono text-[14px] font-bold text-emas">
-                    {b.emas}
-                  </td>
-                  <td className="tnum px-4 py-3 text-right font-mono text-[14px] font-bold text-perak">
-                    {b.perak}
-                  </td>
-                  <td className="tnum px-4 py-3 text-right font-mono text-[14px] font-bold text-perunggu">
-                    {b.perunggu}
-                  </td>
-                  <td className="tnum px-4 py-3 text-right font-mono text-[14px] text-paper">
-                    {b.total}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Kartu>
-
-        <CatatanDemo>
-          Peringkat memakai aturan kompetisi: dua kontingen dengan perolehan
-          sama berbagi peringkat, dan yang berikutnya melompat. Hasil sementara
-          berubah begitu juri mengunci nilai — buka{" "}
-          <Link href="/juri" className="text-aksen underline">
-            panel juri
-          </Link>{" "}
-          lalu kembali ke sini.
-        </CatatanDemo>
-
-        <p className="font-mono text-[10px] tracking-[0.1em] text-muted uppercase">
-          Mencakup: {eventTercakup.join(" · ")}
-        </p>
+                      <span className="font-mono text-[10px] text-muted">
+                        {singkatanPerguruan(a.perguruanId)} ·{" "}
+                        {kelompokUmur(a.umur)}
+                      </span>
+                    </div>
+                    <span className="tnum font-mono text-[12px] text-emas">
+                      {emas}E
+                    </span>
+                    <span className="tnum w-8 text-right font-mono text-[12px] text-muted">
+                      {total}
+                    </span>
+                  </Link>
+                ))}
+              </Kartu>
+            </section>
+            <section className="flex flex-col gap-4">
+              <JudulBagian eyebrow="Kategori" judul="Medali per kategori" />
+              <Kartu className="divide-y divide-white/10">
+                {perKategori.map(({ kId, n }) => (
+                  <div key={kId} className="flex items-center gap-3 px-4 py-3">
+                    <div className="flex min-w-0 flex-1 flex-col">
+                      <span className="truncate text-[13px] text-paper">
+                        {kategoriById(kId)?.nama}
+                      </span>
+                      <span className="font-mono text-[10px] text-muted">
+                        {kategoriById(kId)?.kelompokUmur}
+                        {kategoriById(kId)?.gender === "L"
+                          ? " · Putra"
+                          : kategoriById(kId)?.gender === "P"
+                            ? " · Putri"
+                            : ""}
+                      </span>
+                    </div>
+                    <div className="h-1.5 w-20 bg-ink-500">
+                      <div
+                        className="h-full bg-aksen"
+                        style={{ width: `${(n / perKategori[0].n) * 100}%` }}
+                      />
+                    </div>
+                    <span className="tnum w-6 text-right font-mono text-[12px] text-paper">
+                      {n}
+                    </span>
+                  </div>
+                ))}
+              </Kartu>
+            </section>
+          </div>
+        </div>
         <section className="flex flex-col gap-4">
           <JudulBagian
             eyebrow="Dari matras"

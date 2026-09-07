@@ -91,19 +91,21 @@ export default async function HalamanEvent({
       <div className="grid grid-cols-2 gap-px border border-white/10 bg-white/10 sm:grid-cols-4">
         <div className="bg-ink-700 p-5">
           <Statistik
+            kecil
             angka={event.jumlahPeserta}
             label="Peserta"
             ket={`kuota ${event.kuota}`}
           />
         </div>
         <div className="bg-ink-700 p-5">
-          <Statistik angka={event.kategoriIds.length} label="Kategori" />
+          <Statistik kecil angka={event.kategoriIds.length} label="Kategori" />
         </div>
         <div className="bg-ink-700 p-5">
-          <Statistik angka={arena.length || "—"} label="Matras" />
+          <Statistik kecil angka={arena.length || "—"} label="Matras" />
         </div>
         <div className="bg-ink-700 p-5">
           <Statistik
+            kecil
             angka={rubrik.length}
             label="Aspek dinilai"
             ket={`${rubrik.filter((a) => a.tipe === "inti").length} inti + ${rubrik.filter((a) => a.tipe === "ekstensi").length} ekstensi`}

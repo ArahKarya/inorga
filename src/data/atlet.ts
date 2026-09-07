@@ -707,3 +707,16 @@ export function kemiringanTren(tren: readonly TrenTitik[]): number {
     Object.values(t.nilai).reduce((a, b) => a + b, 0);
   return (total(tren[tren.length - 1]) - total(tren[0])) / (tren.length - 1);
 }
+
+/** Kelompok umur kompetisi silat tradisi pada data contoh ini. */
+export type KelompokUmur = "Pra-Remaja" | "Remaja" | "Dewasa";
+export const kelompokUmur = (umur: number): KelompokUmur =>
+  umur < 14 ? "Pra-Remaja" : umur < 18 ? "Remaja" : "Dewasa";
+
+/** Tahun ketika atlet naik ke kelompok umur berikutnya — dasar pelacakan kohort. */
+export function naikKelompok(atlet: Atlet): { ke: KelompokUmur; tahun: number } | null {
+  const lahir = Number(atlet.tanggalLahir.slice(0, 4));
+  if (atlet.umur < 14) return { ke: "Remaja", tahun: lahir + 14 };
+  if (atlet.umur < 18) return { ke: "Dewasa", tahun: lahir + 18 };
+  return null;
+}
