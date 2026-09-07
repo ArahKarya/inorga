@@ -1,8 +1,10 @@
 <div align="center">
 
+<img src="docs/tangkapan/ikon.png" alt="Ikon INORGA" width="112" height="112">
+
 # INORGA — Ekosistem Digital Pemanduan Bakat Pencak Silat
 
-**Satu aplikasi, empat sudut pandang — atlet, panitia, perguruan, dan Pemkot melihat data yang sama, secara real-time.**
+**Satu aplikasi, lima sudut pandang — atlet, perguruan, panitia, juri, dan Pemkot melihat data yang sama, secara real-time.**
 
 [![Status](https://img.shields.io/badge/Status-Prototype%20Demo-16C79A?style=flat-square)](#)
 [![Stack](https://img.shields.io/badge/Next.js%2016-React%2019%20+%20Tailwind%204-0F3460?style=flat-square&logo=next.js&logoColor=white)](#)
@@ -19,6 +21,38 @@ sudah verifikasi identitas, siapa yang butuh rapor perkembangan: semua masih
 di kertas dan grup WhatsApp. **INORGA** adalah prototipe demo untuk tahap
 penawaran ke Pemkot Palembang dan KORMI — satu sumber data, empat peran yang
 melihatnya dari sudut berbeda.
+
+## 🖼️ Tangkapan Layar
+
+### Beranda
+![Beranda INORGA](docs/tangkapan/01-beranda.png)
+
+### Panitia & papan skor arena — momen dua layar
+Panitia menekan "Panggil peserta berikutnya" di ponsel; papan skor di proyektor
+berubah tanpa reload, tersinkron lewat event `storage`.
+
+| Panel panitia | Papan skor arena |
+|---|---|
+| ![Panel panitia](docs/tangkapan/02-panitia.png) | ![Papan skor arena](docs/tangkapan/03-arena.png) |
+
+### Panel juri — aspek inti dan ekstensi dipisah
+![Panel juri](docs/tangkapan/04-juri.png)
+
+### Dashboard Pemkot & KORMI
+![Dashboard Pemkot](docs/tangkapan/05-pemkot.png)
+
+### Klasemen medali
+![Klasemen medali](docs/tangkapan/06-klasemen.png)
+
+### Verifikasi sertifikat publik
+Bisa dibuka siapa pun tanpa masuk; sidik dihitung dari nomor, pemegang, dan event.
+
+![Verifikasi sertifikat](docs/tangkapan/07-sertifikat.png)
+
+### Tampilan ponsel
+Navigasi peran pindah ke bawah, tabel berubah jadi kartu, tidak ada geser samping.
+
+![Tampilan ponsel](docs/tangkapan/08-ponsel.png)
 
 ## ✨ Kenapa INORGA
 
