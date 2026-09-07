@@ -142,7 +142,7 @@ export default function HalamanJuri() {
       </header>
 
       <div className="inner grid gap-10 lg:grid-cols-[1fr_1.4fr]">
-        <div className="flex flex-col gap-8">
+        <div className="flex min-w-0 flex-col gap-8">
           <div className="flex gap-2">
             {ARENA.map((a) => (
               <button
@@ -290,7 +290,7 @@ export default function HalamanJuri() {
           </section>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex min-w-0 flex-col gap-8">
           {tampil && atlet ? (
             sudahKunci(juriId) ? (
               <Kartu className="p-6">

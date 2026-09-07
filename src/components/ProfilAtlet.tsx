@@ -181,7 +181,7 @@ export function ProfilAtlet({
   return (
     <main className="flex flex-col gap-10 pb-12">
       <div className="inner grid gap-10 pt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
-        <div className="flex flex-col gap-8">
+        <div className="flex min-w-0 flex-col gap-8">
           {antrianSaya && arena && eventArena ? (
             <div
               className={`border-2 border-aksen bg-aksen/10 p-6 ${antrianSaya.status === "dipanggil" ? "animate-panggil" : ""}`}
@@ -432,7 +432,7 @@ export function ProfilAtlet({
           </section>
         </div>
 
-        <div className="flex flex-col gap-8">
+        <div className="flex min-w-0 flex-col gap-8">
           <section className="flex flex-col gap-5">
             <JudulBagian eyebrow="Rapor" judul="Tren nilai aspek inti" />
             <Kartu className="p-6">

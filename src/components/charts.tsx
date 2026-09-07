@@ -90,10 +90,10 @@ export function GrafikTrenInti({ data }: { data: readonly TrenTitik[] }) {
 
   return (
     <figure className="m-0 flex flex-col gap-3">
-      <div className="overflow-x-auto">
+      <div className="-mx-2 overflow-x-auto px-2">
         <svg
           viewBox={`0 0 ${W} ${H}`}
-          className="h-auto w-full min-w-[520px]"
+          className="h-auto w-full min-w-[460px]"
           role="img"
           aria-label="Tren nilai tiga aspek inti pada event-event terakhir"
         >

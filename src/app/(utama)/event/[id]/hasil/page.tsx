@@ -92,7 +92,7 @@ export default function HalamanHasil({
               </span>
             }
           />
-          <Kartu className="hidden overflow-x-auto sm:block">
+          <Kartu className="hidden min-w-0 overflow-x-auto sm:block">
             <table className="w-full min-w-[760px] text-left">
               <thead>
                 <tr className="border-b border-white/10">

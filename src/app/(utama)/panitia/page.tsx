@@ -128,7 +128,7 @@ export default function HalamanPanitia() {
       </header>
 
       <div className="inner grid gap-10 lg:grid-cols-[1.4fr_1fr]">
-        <div className="flex flex-col gap-8">
+        <div className="flex min-w-0 flex-col gap-8">
           <Kartu
             warna={luring ? "bg-amber-400/5" : "bg-ink-700"}
             className={`flex flex-wrap items-center justify-between gap-3 p-4 ${luring ? "border-amber-400/40" : ""}`}
@@ -178,7 +178,7 @@ export default function HalamanPanitia() {
             ))}
           </div>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow={labelKategori(arena.kategoriAktifId)}
               judul={`Antrian ${arena.nama}`}
@@ -235,8 +235,8 @@ export default function HalamanPanitia() {
           </section>
         </div>
 
-        <div className="flex flex-col gap-8">
-          <section className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-8">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian eyebrow="Semua matras" judul="Sekilas arena" />
             <Kartu className="divide-y divide-white/10">
               {ARENA.map((a) => {
@@ -285,7 +285,7 @@ export default function HalamanPanitia() {
             </Kartu>
           </section>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian eyebrow="Rundown" judul="Jadwal hari ini" />
             <Kartu className="divide-y divide-white/10">
               {ARENA.flatMap((a) =>
@@ -311,7 +311,7 @@ export default function HalamanPanitia() {
             </Kartu>
           </section>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian eyebrow="Meja pendaftaran" judul="Check-in" />
             <div className="grid grid-cols-2 gap-px border border-white/10 bg-white/10">
               <div className="bg-ink-700 p-4">
@@ -340,7 +340,7 @@ export default function HalamanPanitia() {
                   <span className="min-w-0 flex-1 truncate text-[12px] text-paper-dim">
                     {labelKategori(r.kId)}
                   </span>
-                  <div className="h-1.5 w-24 bg-ink-500">
+                  <div className="h-1.5 w-14 shrink-0 bg-ink-500 sm:w-24">
                     <div
                       className="h-full bg-emerald-400"
                       style={{ width: `${(r.hadir / r.total) * 100}%` }}

@@ -170,8 +170,8 @@ export default function HalamanKlasemen() {
         </div>
 
         <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-          <div className="flex flex-col gap-6">
-            <Kartu className="hidden overflow-x-auto sm:block">
+          <div className="flex min-w-0 flex-col gap-6">
+            <Kartu className="hidden min-w-0 overflow-x-auto sm:block">
               <table className="w-full min-w-[560px] text-left">
                 <thead>
                   <tr className="border-b border-white/10">
@@ -277,8 +277,8 @@ export default function HalamanKlasemen() {
             </p>
           </div>
 
-          <div className="flex flex-col gap-8">
-            <section className="flex flex-col gap-4">
+          <div className="flex min-w-0 flex-col gap-8">
+            <section className="flex min-w-0 flex-col gap-4">
               <JudulBagian eyebrow="Atlet" judul="Peraih medali terbanyak" />
               <Kartu className="divide-y divide-white/10">
                 {peraih.map(({ a, emas, total }, i) => (
@@ -309,7 +309,7 @@ export default function HalamanKlasemen() {
                 ))}
               </Kartu>
             </section>
-            <section className="flex flex-col gap-4">
+            <section className="flex min-w-0 flex-col gap-4">
               <JudulBagian eyebrow="Kategori" judul="Medali per kategori" />
               <Kartu className="divide-y divide-white/10">
                 {perKategori.map(({ kId, n }) => (
@@ -327,7 +327,7 @@ export default function HalamanKlasemen() {
                             : ""}
                       </span>
                     </div>
-                    <div className="h-1.5 w-20 bg-ink-500">
+                    <div className="h-1.5 w-12 shrink-0 bg-ink-500 sm:w-20">
                       <div
                         className="h-full bg-aksen"
                         style={{ width: `${(n / perKategori[0].n) * 100}%` }}
@@ -342,7 +342,7 @@ export default function HalamanKlasemen() {
             </section>
           </div>
         </div>
-        <section className="flex flex-col gap-4">
+        <section className="flex min-w-0 flex-col gap-4">
           <JudulBagian
             eyebrow="Dari matras"
             judul="Cuplikan kategori"

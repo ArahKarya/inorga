@@ -33,8 +33,8 @@ export function DemoBar() {
      * bilah itu sendiri, bukan setinggi layar.
      */
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink-900/90 backdrop-blur-md">
-        <div className="mx-auto flex max-w-[1440px] items-center gap-4 px-[18px] py-3 sm:px-8 sm:py-[18px]">
+      <header className="bilah-atas fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink-900/90 backdrop-blur-md">
+        <div className="mx-auto flex h-full max-w-[1440px] items-center gap-4 px-[18px] sm:px-8">
           <Link
             href="/"
             className="brand flex shrink-0 items-center gap-2.5 text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-aksen"

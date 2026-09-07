@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!-- Lapisan depan adaptive icon Android. Latar transparan; seluruh gambar
+       muat di dalam zona aman 66,7% (lingkaran diameter 683 px di kanvas 1024),
+       karena peluncur boleh memotong tepi luar dengan bentuk apa pun. -->
+  <circle cx="512" cy="512" r="270" fill="none" stroke="#f2f2f2" stroke-width="34"/>
+  <circle cx="512" cy="242" r="48" fill="#e8481f"/>
+  <g stroke="#f2f2f2" stroke-linecap="round">
+    <path d="M512 396v232" stroke-width="58"/>
+    <path d="M440 396h144M440 628h144" stroke-width="46"/>
+  </g>
+</svg>

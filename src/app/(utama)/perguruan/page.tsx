@@ -77,7 +77,7 @@ export default function HalamanPerguruan() {
       </header>
 
       <div className="inner grid gap-10 lg:grid-cols-[1fr_1.6fr]">
-        <div className="flex flex-col gap-10">
+        <div className="flex min-w-0 flex-col gap-10">
           <div className="grid grid-cols-3 gap-px border border-white/10 bg-white/10">
             <div className="bg-ink-700 p-4">
               <Statistik
@@ -103,7 +103,7 @@ export default function HalamanPerguruan() {
             </div>
           </div>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Prestasi perguruan"
               judul="Medali bersistem"
@@ -158,7 +158,7 @@ export default function HalamanPerguruan() {
             </Kartu>
           </section>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Komposisi binaan"
               judul="Kelompok umur & asal"
@@ -201,8 +201,8 @@ export default function HalamanPerguruan() {
           </section>
         </div>
 
-        <div className="flex flex-col gap-10">
-          <section className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-10">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Pendaftaran kolektif"
               judul="Daftarkan binaan ke event"
@@ -224,7 +224,7 @@ export default function HalamanPerguruan() {
             </Kartu>
           </section>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Binaan"
               judul="Anggota aktif"
@@ -268,7 +268,7 @@ export default function HalamanPerguruan() {
             </Kartu>
           </section>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Event aktif"
               judul="Binaan yang terdaftar"
@@ -310,7 +310,7 @@ export default function HalamanPerguruan() {
             </Kartu>
           </section>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Direktori kota"
               judul="Perguruan lain di Palembang"

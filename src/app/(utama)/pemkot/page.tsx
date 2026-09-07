@@ -136,7 +136,7 @@ export default function HalamanPemkot() {
         </div>
 
         <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr]">
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Sebaran geografis"
               judul="Peta pembinaan per kecamatan"
@@ -151,8 +151,8 @@ export default function HalamanPemkot() {
             </CatatanDemo>
           </section>
 
-          <div className="flex flex-col gap-10">
-            <section className="flex flex-col gap-4">
+          <div className="flex min-w-0 flex-col gap-10">
+            <section className="flex min-w-0 flex-col gap-4">
               <JudulBagian
                 eyebrow="Peringkat"
                 judul="Delapan kecamatan teratas"
@@ -179,7 +179,7 @@ export default function HalamanPemkot() {
               </Kartu>
             </section>
 
-            <section className="flex flex-col gap-4">
+            <section className="flex min-w-0 flex-col gap-4">
               <JudulBagian eyebrow="Kohort" judul="Jenjang usia" />
               <div className="grid grid-cols-3 gap-px border border-white/10 bg-white/10">
                 {kohort.map(({ g, n, putri }) => (
@@ -206,7 +206,7 @@ export default function HalamanPemkot() {
         </div>
 
         <div className="grid gap-10 lg:grid-cols-2">
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Radar bakat"
               judul="Laju perbaikan tercepat"
@@ -253,7 +253,7 @@ export default function HalamanPemkot() {
             </CatatanDemo>
           </section>
 
-          <section className="flex flex-col gap-4">
+          <section className="flex min-w-0 flex-col gap-4">
             <JudulBagian
               eyebrow="Perguruan"
               judul="Medali bersistem per perguruan"
@@ -278,7 +278,7 @@ export default function HalamanPemkot() {
                       {p.jumlahAnggota} anggota
                     </span>
                   </div>
-                  <div className="h-1.5 w-24 bg-ink-500">
+                  <div className="h-1.5 w-14 shrink-0 bg-ink-500 sm:w-24">
                     <div
                       className="h-full bg-aksen"
                       style={{
@@ -295,9 +295,9 @@ export default function HalamanPemkot() {
           </section>
         </div>
 
-        <section className="flex flex-col gap-4">
+        <section className="flex min-w-0 flex-col gap-4">
           <JudulBagian eyebrow="Penyelenggaraan" judul="Event tahun berjalan" />
-          <Kartu className="hidden overflow-x-auto sm:block">
+          <Kartu className="hidden min-w-0 overflow-x-auto sm:block">
             <table className="w-full min-w-[640px] text-left">
               <thead>
                 <tr className="border-b border-white/10">

@@ -263,3 +263,30 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .footage-gerak { animation: none !important; }
 }
+
+/*
+ * Tinggi bilah atas dipatok, bukan mengikuti isi — sebelumnya bilah 80px
+ * sementara ruang yang disediakan 71px, sehingga bagian atas halaman
+ * tersembunyi di baliknya. Nilai yang sama dipakai bilah dan ruangnya,
+ * plus safe-area untuk ponsel berponi.
+ */
+:root {
+  --bilah: 56px;
+}
+@media (min-width: 768px) {
+  :root { --bilah: 72px; }
+}
+
+.bilah-atas {
+  height: calc(var(--bilah) + env(safe-area-inset-top));
+  padding-top: env(safe-area-inset-top);
+}
+.ruang-bilah {
+  padding-top: calc(var(--bilah) + env(safe-area-inset-top));
+}
+.ruang-nav {
+  padding-bottom: calc(70px + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .ruang-nav { padding-bottom: 0; }
+}

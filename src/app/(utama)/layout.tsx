@@ -14,7 +14,7 @@ export default function LayoutUtama({
       <SmoothScroll />
       <Perangkat />
       <DemoBar />
-      <div className="pt-[62px] pb-[70px] sm:pt-[71px] md:pb-0">{children}</div>
+      <div className="ruang-bilah ruang-nav">{children}</div>
       <NavBawah />
     </>
   );
